@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+import { format } from 'date-fns'
 
 class Post extends Component {
 
     render() {
+        const {id, author, title, body, category, commentCount, createdAt, voteScore} = this.props
+        let formattedDateTime = format(new Date(createdAt), 'MM/DD/YYYY')
+
         return (
 
             <div className="content">
-                <h2 className="content-subhead">Post Title</h2>
-                <p class="post-meta">
-                    By <a href="#" class="post-author">Author</a> under <a class="post-category" href="#">Category</a> 
+                <h2 className="content-subhead">{title}</h2>
+                <p className="post-meta">
+                    Posted on {formattedDateTime} by <a href="#" className="post-author">{author}</a> under <a className="post-category" href="#">{category}</a> 
                 </p>
+                <p>{body}</p>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas commodo tortor semper sodales mollis. Ut dapibus laoreet mauris, vel eleifend ipsum finibus ac. Quisque vel ligula vel tellus scelerisque semper a a leo. Mauris vitae tempus urna, sit amet vehicula orci. Etiam porta velit nec est aliquet, sed iaculis dolor placerat. In eget iaculis erat. Aenean nec convallis mi. Nunc mollis, erat vitae semper consequat, felis tortor egestas felis, id mattis augue nibh at lorem. Mauris dapibus non nunc ac porta. Aliquam in ligula lobortis, tristique justo a, sodales eros. Nullam luctus ultrices elit id placerat. Phasellus id vehicula nibh. Etiam venenatis laoreet augue auctor dignissim.
-                </p>
-                <p>
-                    10 Votes ( Upvote ) | ( Downvote )
+                    {voteScore} Votes ( Upvote ) | ( Downvote )
                 </p>
             </div>
         )

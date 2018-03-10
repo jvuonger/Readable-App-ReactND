@@ -4,17 +4,22 @@ import * as ReadableAPI from '../utils/ReadableAPI'
 
 class App extends Component {
     state = {
-        categories: []
+        categories: [],
+        posts: []
     }
 
     componentDidMount() {
         ReadableAPI.getAllCategories().then((categories) =>
             this.setState({categories})
         )
+
+        ReadableAPI.getAllPosts().then((posts) => 
+            this.setState({posts})
+        )
     }
 
     render() {
-        const { categories } = this.state
+        const { categories, posts } = this.state
 
         return (
             <div className="App">
@@ -25,7 +30,7 @@ class App extends Component {
                             <a className="pure-menu-heading" href="#">Readable</a>
                             <ul className="pure-menu-list">
                                 { categories.map((category) => (
-                                    <li className="pure-menu-item"><a href={category.path} className="pure-menu-link">{ category.name }</a></li>
+                                    <li key={category.name} className="pure-menu-item"><a href={category.path} className="pure-menu-link">{ category.name }</a></li>
                                 ))}
                             </ul>
                         </div>
@@ -36,9 +41,19 @@ class App extends Component {
                             <h1>Readable</h1>
                         </div>
 
-                        <Post />
-                        <Post />
-                        <Post />
+                        { posts.map((post) => (
+                            <Post 
+                                key={post.id}
+                                id={post.id}
+                                author={post.author}
+                                title={post.title}
+                                body={post.body}
+                                category={post.category}
+                                commentCount={post.commentCount}
+                                createdAt={post.timestamp}
+                                voteScore={post.voteScore}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
