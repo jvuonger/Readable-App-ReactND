@@ -18,6 +18,7 @@ class Post extends Component {
                 <p>
                     {voteScore} Votes ( Upvote ) | ( Downvote )
                 </p>
+                <span>{id}</span>
             </div>
         )
     }

@@ -116,3 +116,89 @@ export const deletePost = (post_id) =>
         }
     }).then(res => res.json())
         .then(data => data)
+
+/**
+ * GET /posts/:id/comments
+ * Get all the comments for a single post
+ */
+export const getAllPostComments = (post_id) =>
+    fetch(`${api}/posts/${post_id}/comments`, {headers})
+        .then(res => res.json())
+        .then( data => data )
+
+/**
+ * POST /comments
+ * Add a comment to a post
+ * 
+ * Params:
+ *   id: any unique ID.  As with posts, UUID is probably the best here
+ *   timestamp: timestamp
+ *   body: String
+ *   author: String
+ *   parentId: Should match a post id in the database
+ */
+export const addComment = (comment) =>
+    fetch(`${api}/comments`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type' : 'application/json'
+        }
+    }).then(res => res.json())
+      .then(data => data)
+
+/**
+ * GET /comments/:id
+ * Get the details for a single comment
+ */
+export const getComment = (comment_id) => 
+    fetch(`${api}/comments/${comment_id}`, { headers })
+        .then(res => res.json())
+        .then(data => data)
+
+/**
+ * POST /comments/:id
+ * Used for voting on a comment.
+ */
+export const voteComment = (comment_id, option) => 
+    fetch(`${api}/comments/${comment_id}`, { 
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type' : 'application/json'
+        }
+    }).then(res => res.json())
+      .then(data => data)
+
+/**
+ * PUT /comments/:id
+ * Edit the details of an existing element
+ * 
+ * Params:
+ *   timestamp: timestamp. Get this however you want.
+ *   body: String
+ */
+export const editComment = (comment_id, comment) => 
+    fetch(`${api}/comments/${comment_id}`, {
+        method: 'PUT',
+        headers: {
+            ...headers,
+            'Content-Type' : 'application/json'
+        },
+        body: { timestamp: comment.created, body: comment.body }
+    }).then(res => res.json())
+      .then(data => data)
+
+/**
+ * DELETE /comments/:id
+ * Sets a comment's deleted flag to 'true'
+ */
+export const deleteComment = (comment_id) =>
+    fetch(`${api}/comments/${comment_id}`, {
+        method: 'DELETE',
+        headers: {
+            ...headers,
+            'Content-Type' : 'application/json'
+        }
+    }).then(res => res.json())
+      .then(data => data )
