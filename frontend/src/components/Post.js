@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { format } from 'date-fns'
+import CommentForm from './Comment'
 
 class Post extends Component {
 
@@ -18,7 +19,9 @@ class Post extends Component {
                 <p>
                     {voteScore} Votes ( Upvote ) | ( Downvote )
                 </p>
-                <span>{id}</span>
+                <span>Comments: {commentCount}</span>
+                <hr />
+                <CommentForm postId={id} />
             </div>
         )
     }

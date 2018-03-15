@@ -56,7 +56,7 @@ export const addPost = (post) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: post
+    body: JSON.stringify(post)
   }).then(res => res.json())
     .then(data => data)
 
@@ -81,7 +81,7 @@ export const votePost = (post_id, option) =>
           ...headers,
           'Content-Type' : 'application/json'
       },
-      body: { option }
+      body: JSON.stringify({ option })
   }).then(res => res.json())
     .then(data => data)
 
@@ -97,7 +97,7 @@ export const editPost = (post_id, post) => {
           ...headers,
           'Content-Type' : 'application/json'
       },
-      body: { title, body }
+      body: JSON.stringify({ title, body })
   }).then(res => res.json())
     .then(data => data)
 }
@@ -143,7 +143,8 @@ export const addComment = (comment) =>
         headers: {
             ...headers,
             'Content-Type' : 'application/json'
-        }
+        },
+        body: JSON.stringify(comment)
     }).then(res => res.json())
       .then(data => data)
 
@@ -166,7 +167,8 @@ export const voteComment = (comment_id, option) =>
         headers: {
             ...headers,
             'Content-Type' : 'application/json'
-        }
+        },
+        body: JSON.stringify({option})
     }).then(res => res.json())
       .then(data => data)
 
@@ -185,7 +187,7 @@ export const editComment = (comment_id, comment) =>
             ...headers,
             'Content-Type' : 'application/json'
         },
-        body: { timestamp: comment.created, body: comment.body }
+        body: JSON.stringify({ timestamp: comment.created, body: comment.body })
     }).then(res => res.json())
       .then(data => data)
 
