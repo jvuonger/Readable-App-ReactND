@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Post from './Post'
+import PostListItem from './PostListItem'
 import * as ReadableAPI from '../utils/ReadableAPI'
 
 const SortDirection = {
@@ -7,7 +7,7 @@ const SortDirection = {
     DESCENDING : 'desc'
 }
 
-class Posts extends Component {
+class PostList extends Component {
     state = {
         posts : []
     }
@@ -68,7 +68,7 @@ class Posts extends Component {
                 </div>
 
                 { posts.map((post) => (
-                    <Post 
+                    <PostListItem 
                         key={post.id}
                         id={post.id}
                         author={post.author}
@@ -85,4 +85,4 @@ class Posts extends Component {
     }
 }
 
-export default Posts
+export default PostList

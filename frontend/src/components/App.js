@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom'
-import Posts from './Posts'
+import PostList from './PostList'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import CreateEditPost from './CreateEditPost'
+import PostDetail from './PostDetail';
 
 class App extends Component {
 
@@ -38,14 +39,15 @@ class App extends Component {
 
                     <div id="main">
                         <Route exact path="/" render={() =>
-                            <Posts filterCategory="all" />
+                            <PostList filterCategory="all" />
                         } />
                         { categories.map((category) => (
                             <Route exact path={'/' + category.path} render={() => 
-                                <Posts key={category.name} filterCategory={category.name} />
+                                <PostList key={category.name} filterCategory={category.name} />
                             } />
                         ))}
-                        <Route path="/create/:post_id?" render={() =>
+                        <Route path="/post/:postId" component={PostDetail} />
+                        <Route path="/create/:postId?" render={() =>
                             <CreateEditPost categories={categories} />
                         } />
                     </div>

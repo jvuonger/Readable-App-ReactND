@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { format } from 'date-fns'
-import CommentForm from './Comment'
+import { Link } from 'react-router-dom'
 
-class Post extends Component {
+class PostListItem extends Component {
 
     render() {
         const {id, author, title, body, category, commentCount, createdAt, voteScore} = this.props
@@ -11,7 +11,9 @@ class Post extends Component {
         return (
 
             <div className="content">
-                <h2 className="content-subhead">{title}</h2>
+                <h2 className="content-subhead">
+                    <Link to={`/post/${id}`}>{title}</Link>
+                </h2>
                 <p className="post-meta">
                     Posted on {formattedDateTime} by <a href="#" className="post-author">{author}</a> under <a className="post-category" href="#">{category}</a> 
                 </p>
@@ -20,11 +22,9 @@ class Post extends Component {
                     {voteScore} Votes ( Upvote ) | ( Downvote )
                 </p>
                 <span>Comments: {commentCount}</span>
-                <hr />
-                <CommentForm postId={id} />
             </div>
         )
     }
 }
 
-export default Post
+export default PostListItem
