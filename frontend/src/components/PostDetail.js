@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { format } from 'date-fns'
-import CommentForm from './CommentForm'
+import CommentList from './CommentList'
 import * as ReadableAPI from '../utils/ReadableAPI'
 
 class PostDetail extends Component {
@@ -16,6 +16,7 @@ class PostDetail extends Component {
     }
 
     render() {
+        const { postId } = this.props.match.params
         const {id, author, title, body, category, commentCount, createdAt, voteScore} = this.state.post
         let formattedDateTime = format(new Date(createdAt), 'MM/DD/YYYY')
 
@@ -32,7 +33,7 @@ class PostDetail extends Component {
                 </p>
                 <span>Comments: {commentCount}</span>
                 <hr />
-                <CommentForm postId={id} />
+                <CommentList postId={postId} />
             </div>
         )
     }

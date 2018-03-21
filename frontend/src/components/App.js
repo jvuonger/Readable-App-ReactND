@@ -26,11 +26,11 @@ class App extends Component {
 
                     <div id="menu">
                         <div className="pure-menu">
-                            <a className="pure-menu-heading" href="#">Readable</a>
+                            <a className="pure-menu-heading" href="/">Readable</a>
                             <ul className="pure-menu-list">
                                 <li className="pure-menu-item"><a href="/" className="pure-menu-link">Home</a></li>
                                 { categories.map((category) => (
-                                    <li key={category.name} className="pure-menu-item"><a href={category.path} className="pure-menu-link">{ category.name }</a></li>
+                                    <li key={category.name} className="pure-menu-item"><a href={'/' + category.path} className="pure-menu-link">{ category.name }</a></li>
                                 ))}
                                 <li className="pure-menu-item"><a href="/create" className="pure-menu-link">Create a Post</a></li>
                             </ul>
