@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { Link, Route } from 'react-router-dom'
 import PostList from './PostList'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import CreateEditPost from './CreateEditPost'
-import PostDetail from './PostDetail';
+import PostDetail from './PostDetail'
+import Modal from 'react-modal'
 
 class App extends Component {
 
     state = {
-        categories: []
+        categories: [],
+        commentModalOpen: false
     }
 
     componentDidMount() {
@@ -17,13 +19,24 @@ class App extends Component {
         )
     }
 
+    createCommentModal = () => {
+        this.setState({commentModalOpen: true})
+    }
+
+    editCommentModal = () => {
+        this.setState({commentModalOpen: true})
+    }
+
+    closeCommentModal = () => {
+        this.setState({commentModalOpen: false})
+    }
+
     render() {
-        const { categories } = this.state
+        const { categories, commentModalOpen } = this.state
 
         return (
             <div className="App">
                 <div id="layout">
-
                     <div id="menu">
                         <div className="pure-menu">
                             <a className="pure-menu-heading" href="/">Readable</a>
@@ -38,6 +51,7 @@ class App extends Component {
                     </div>
 
                     <div id="main">
+                        <button onClick={this.createCommentModal}>Create Comment</button>
                         <Route exact path="/" render={() =>
                             <PostList filterCategory="all" />
                         } />
@@ -52,6 +66,17 @@ class App extends Component {
                         } />
                     </div>
                 </div>
+
+                <Modal
+                    className='modal'
+                    overlayClassName='overlay'
+                    isOpen={commentModalOpen}
+                    onRequestClose={this.closeCommentModal}
+                    contentLabel='Modal'
+                    >
+                    Comment Modal
+                    <button onClick={this.closeCommentModal}>Close Modal</button>
+                </Modal>
             </div>
         );
     }

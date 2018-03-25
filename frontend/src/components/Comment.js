@@ -9,7 +9,7 @@ class Comment extends Component {
         }
     }
 
-    handleVote = (type) => {
+    handleVoteComment = (type) => {
         if(type === "upVote") {
             ReadableAPI.voteComment(this.props.comment.id, "upVote").then((data) => {
                 this.setState((prevState) => {
@@ -27,6 +27,17 @@ class Comment extends Component {
         }
     }
 
+    handleEditComment = () => {
+
+    }
+
+    handleDeleteComment = () => {
+        ReadableAPI.deleteComment(this.state.comment.id).then((data) => {
+            // Todo remove the comment from CommentList
+            console.log('Deleted comment  ' + this.state.comment.id )
+        })
+    }
+
     render() {
         let { comment } = this.state
         return (
@@ -35,8 +46,12 @@ class Comment extends Component {
                 <span>Comment by: {comment.author} on {comment.timestamp}</span>
                 <span>
                     Votes: {comment.voteScore} : 
-                    <a href="#upvote" onClick={() => this.handleVote("upVote")}>Upvote</a> | 
-                    <a href="#downvote" onClick={() => this.handleVote("downVote")}>Downvote</a>
+                    <a href="#upvote" onClick={() => this.handleVoteComment("upVote")}>Upvote</a> | 
+                    <a href="#downvote" onClick={() => this.handleVoteComment("downVote")}>Downvote</a>
+                </span>
+                <span>
+                    <a href="#edit" onClick={this.handleEditComment}>Edit</a>
+                    <a href="#delete" onClick={this.handleDeleteComment}>Delete</a>
                 </span>
             </div>
         )
