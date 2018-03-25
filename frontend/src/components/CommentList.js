@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as ReadableAPI from '../utils/ReadableAPI'
+import Comment from './Comment'
 import CommentForm from './CommentForm'
 
 class CommentList extends Component {
@@ -26,10 +27,7 @@ class CommentList extends Component {
                 </div>
 
                 { comments.map((comment) => (
-                    <div key={comment.id}>
-                        <p>{comment.body}</p>
-                        <h4>Comment by: {comment.author} on {comment.timestamp}</h4>
-                    </div>
+                    <Comment key={comment.id} comment={comment} />
                 ))}
 
                 <hr/>

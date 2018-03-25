@@ -42,7 +42,7 @@ class App extends Component {
                             <PostList filterCategory="all" />
                         } />
                         { categories.map((category) => (
-                            <Route exact path={'/' + category.path} render={() => 
+                            <Route key={category.name} exact path={'/' + category.path} render={() => 
                                 <PostList key={category.name} filterCategory={category.name} />
                             } />
                         ))}
