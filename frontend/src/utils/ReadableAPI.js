@@ -1,4 +1,4 @@
-const api = "http://vagrant:3001"
+const api = "http://localhost:3001"
 
 // Generate a unique token for authorization header
 let token = localStorage.token

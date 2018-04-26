@@ -1,18 +1,15 @@
+import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import PostListItem from './PostListItem'
 import * as ReadableAPI from '../utils/ReadableAPI'
-
-const SortDirection = {
-    ASCENDING : 'asc',
-    DESCENDING : 'desc'
-}
+import { SortFilters, setSortFilter } from '../actions'
 
 class PostList extends Component {
     state = {
         posts : []
     }
-
-    componentDidMount() {
+    
+    componentDidMount() {     
         const { filterCategory } = this.props
 
         if(filterCategory === 'all') {
@@ -26,32 +23,24 @@ class PostList extends Component {
         }
     }
 
-    togglePostVoteSort = (direction) => {
-        let posts = []
-        // Ascending = display lowest votes first ( smaller votes first )
-        // Descending = display most votes first ( bigger votes first )
-        if(direction === SortDirection.ASCENDING) {
-            posts = this.state.posts.slice(0).sort((a,b) => a.voteScore < b.voteScore)
-        } else {
-            posts = this.state.posts.slice(0).sort((a,b) => a.voteScore > b.voteScore)
-        }
-        this.setState({posts})
-    }
-
-    togglePostDateSort = (direction) => {
-        let posts = []
-        // Ascending = display older posts first ( smaller timestamps first )
-        // Descending = display new posts first ( bigger timestamps first )
-        if(direction === SortDirection.ASCENDING) {
-            posts = this.state.posts.slice(0).sort((a,b) => a.timestamp < b.timestamp)
-        } else {
-            posts = this.state.posts.slice(0).sort((a,b) => a.timestamp > b.timestamp)
-        }
-        this.setState({posts})
-    }
-
     render() {
-        const { posts } = this.state
+        const { setSortFilter, sortFilter } = this.props
+        let { posts } = this.state
+
+        switch(sortFilter) {
+            case SortFilters.VOTES_ASCENDING:
+                posts = this.state.posts.slice(0).sort((a,b) => a.voteScore < b.voteScore)
+                break;
+            case SortFilters.VOTES_DESCENDING:
+                posts = this.state.posts.slice(0).sort((a,b) => a.voteScore > b.voteScore)
+                break;
+            case SortFilters.DATE_ASCENDING:
+                posts = posts.slice(0).sort((a,b) => a.timestamp < b.timestamp)
+                break;
+            case SortFilters.DATE_DESCENDING:
+            default:
+                posts = this.state.posts.slice(0).sort((a,b) => a.timestamp > b.timestamp)
+        }
 
         return (
             <div>
@@ -61,10 +50,10 @@ class PostList extends Component {
 
                 <div id="sort-bar">
                     Order Posts By: 
-                    <button onClick={() => this.togglePostVoteSort(SortDirection.ASCENDING)}>Most Votes</button>
-                    <button onClick={() => this.togglePostVoteSort(SortDirection.DESCENDING)}>Least Votes</button> | 
-                    <button onClick={() => this.togglePostDateSort(SortDirection.ASCENDING)}>Most Recent</button>
-                    <button onClick={() => this.togglePostDateSort(SortDirection.DESCENDING)}>Oldest</button>
+                    <button onClick={() => setSortFilter(SortFilters.VOTES_ASCENDING)}>Most Votes</button>
+                    <button onClick={() => setSortFilter(SortFilters.VOTES_DESCENDING)}>Least Votes</button> | 
+                    <button onClick={() => setSortFilter(SortFilters.DATE_DESCENDING)}>Most Recent</button>
+                    <button onClick={() => setSortFilter(SortFilters.DATE_ASCENDING)}>Oldest</button>
                 </div>
 
                 { posts.map((post) => (
@@ -85,4 +74,15 @@ class PostList extends Component {
     }
 }
 
-export default PostList
+const mapStateToProps = state => ({
+    sortFilter: state.sortFilter
+})
+
+const mapDispatchToProps = dispatch => ({
+    setSortFilter: filter => dispatch(setSortFilter(filter)),
+}) 
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PostList)
