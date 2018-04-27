@@ -1,4 +1,3 @@
-import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import PostListItem from './PostListItem'
 import * as ReadableAPI from '../utils/ReadableAPI'
@@ -9,23 +8,13 @@ class PostList extends Component {
         posts : []
     }
     
-    componentDidMount() {     
-        const { filterCategory } = this.props
-
-        if(filterCategory === 'all') {
-            ReadableAPI.getAllPosts().then((posts) => 
-                this.setState({posts})
-            )
-        } else {
-            ReadableAPI.getAllPostsInCategory(filterCategory).then((posts) =>
-                this.setState({posts})
-            )
-        }
+    componentDidMount() {   
+        this.props.fetchPosts('all')
     }
 
     render() {
         const { setSortFilter, sortFilter } = this.props
-        let { posts } = this.state
+        let { posts } = this.props.posts
 
         switch(sortFilter) {
             case SortFilters.VOTES_ASCENDING:
@@ -74,15 +63,4 @@ class PostList extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    sortFilter: state.sortFilter
-})
-
-const mapDispatchToProps = dispatch => ({
-    setSortFilter: filter => dispatch(setSortFilter(filter)),
-}) 
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PostList)
+export default PostList
