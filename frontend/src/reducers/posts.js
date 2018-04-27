@@ -11,7 +11,8 @@ const posts = (state = initialState, action) => {
         case REQUEST_POSTS:
             return Object.assign({}, state, {
                 isFetching: true,
-                didInvalidate: false
+                didInvalidate: false,
+                category: action.category
             })
         case RECEIVE_POSTS:
             return Object.assign({}, state, {

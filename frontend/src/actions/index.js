@@ -18,7 +18,14 @@ export const RECEIVE_POSTS = "RECEIVE_POSTS"
 export function fetchPosts(category = 'all') {
     return dispatch => {
         dispatch(requestPosts(category))
-        return fetch(`${api}/posts`, { headers })
+
+        let apiUrl = `${api}/posts`
+
+        if(category !== 'all') {
+            apiUrl = `${api}/${category}/posts`
+        }
+
+        return fetch(apiUrl, { headers })
             .then(res => res.json())
             .then(json => dispatch(receivePosts(category, json)))
     

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
+import logger from 'redux-logger'
 import rootReducer from './reducers'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
@@ -21,7 +22,8 @@ const store = createStore(
     initialState,
     composeEnhancers(
         applyMiddleware(
-            thunkMiddleware
+            thunkMiddleware,
+            logger
         )
     )
 )

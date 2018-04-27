@@ -2,9 +2,10 @@ import { connect } from 'react-redux'
 import PostList from '../components/PostList'
 import { setSortFilter, fetchPosts } from '../actions'
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     sortFilter: state.sortFilter,
-    posts: state.posts
+    posts: state.posts,
+    filterCategory: ownProps.filterCategory
 })
 
 const mapDispatchToProps = dispatch => ({

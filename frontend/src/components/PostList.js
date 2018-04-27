@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PostListItem from './PostListItem'
-import * as ReadableAPI from '../utils/ReadableAPI'
 import { SortFilters, setSortFilter } from '../actions'
 
 class PostList extends Component {
@@ -9,7 +8,7 @@ class PostList extends Component {
     }
     
     componentDidMount() {   
-        this.props.fetchPosts('all')
+        this.props.fetchPosts(this.props.filterCategory)
     }
 
     render() {
