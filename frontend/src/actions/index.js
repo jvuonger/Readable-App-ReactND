@@ -14,6 +14,8 @@ const headers = {
 /* Posts Actions */
 export const REQUEST_POSTS = "REQUEST_POSTS"
 export const RECEIVE_POSTS = "RECEIVE_POSTS"
+export const UPVOTE_POST = "UPVOTE_POST"
+export const DOWNVOTE_POST = "DOWNVOTE_POST"
 
 export function fetchPosts(category = 'all') {
     return dispatch => {
@@ -32,6 +34,18 @@ export function fetchPosts(category = 'all') {
     }
 }
 
+export function sendUpvotePost(post) {
+    return dispatch => {
+        dispatch(upvotePost(post))
+    }
+}
+
+export function sendDownvotePost(post) {
+    return dispatch => {
+        dispatch(downvotePost(post))
+    }
+}
+
 function requestPosts(category) {
     return {
         type: REQUEST_POSTS,
@@ -44,6 +58,20 @@ function receivePosts(category, json) {
         type: RECEIVE_POSTS,
         category,
         posts: json
+    }
+}
+
+function upvotePost(post) {
+    return {
+        type: UPVOTE_POST,
+        post
+    }
+}
+
+function downvotePost(post) {
+    return {
+        type: DOWNVOTE_POST,
+        post
     }
 }
 

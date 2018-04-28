@@ -1,4 +1,9 @@
-import { REQUEST_POSTS, RECEIVE_POSTS } from '../actions'
+import { 
+    REQUEST_POSTS, 
+    RECEIVE_POSTS,
+    UPVOTE_POST,
+    DOWNVOTE_POST
+} from '../actions'
 
 const initialState = {
     isFetching: false,
@@ -18,6 +23,22 @@ const posts = (state = initialState, action) => {
             return Object.assign({}, state, {
                 isFetching: false,
                 posts: action.posts
+            })
+        case UPVOTE_POST:
+            return Object.assign({}, state, {
+                posts: state.posts.map(post => 
+                    ( post.id === action.post.id ) ?
+                        { ...post, voteScore: ++post.voteScore} :
+                        post
+                )
+            })
+        case DOWNVOTE_POST:
+            return Object.assign({}, state, {
+                posts: state.posts.map(post => 
+                    ( post.id === action.post.id ) ?
+                        { ...post, voteScore: --post.voteScore } :
+                        post
+                )
             })
         default:
             return state

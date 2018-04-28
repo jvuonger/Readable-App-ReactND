@@ -47,14 +47,7 @@ class PostList extends Component {
                 { posts.map((post) => (
                     <PostListItem 
                         key={post.id}
-                        id={post.id}
-                        author={post.author}
-                        title={post.title}
-                        body={post.body}
-                        category={post.category}
-                        commentCount={post.commentCount}
-                        createdAt={post.timestamp}
-                        voteScore={post.voteScore}
+                        post={post}
                     />
                 ))}
             </div>
