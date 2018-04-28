@@ -23,11 +23,11 @@ class PostList extends Component {
                 posts = posts.slice(0).sort((a,b) => a.voteScore > b.voteScore)
                 break;
             case SortFilters.DATE_ASCENDING:
-                posts = posts.slice(0).sort((a,b) => a.timestamp < b.timestamp)
+                posts = posts.slice(0).sort((a,b) => a.timestamp > b.timestamp)
                 break;
             case SortFilters.DATE_DESCENDING:
             default:
-                posts = posts.slice(0).sort((a,b) => a.timestamp > b.timestamp)
+                posts = posts.slice(0).sort((a,b) => a.timestamp < b.timestamp)
         }
 
         return (
