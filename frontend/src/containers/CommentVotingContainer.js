@@ -1,14 +1,14 @@
 import { connect } from 'react-redux'
 import VotingWidget from '../components/VotingWidget'
-import { sendUpvotePost, sendDownvotePost } from '../actions'
+import { sendUpvoteComment, sendDownvoteComment } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
     entity : ownProps.entity
 })
 
 const mapDispatchToProps = dispatch => ({
-    upvoteEntity: entity => dispatch(sendUpvotePost(entity)),
-    downvoteEntity: entity => dispatch(sendDownvotePost(entity))
+    upvoteEntity: entity => dispatch(sendUpvoteComment(entity)),
+    downvoteEntity: entity => dispatch(sendDownvoteComment(entity))
 }) 
 
 export default connect(

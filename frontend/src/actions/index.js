@@ -75,6 +75,66 @@ function downvotePost(post) {
     }
 }
 
+/* Comment Actions */
+export const REQUEST_COMMENTS = "REQUEST_COMMENTS"
+export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS"
+export const UPVOTE_COMMENT = "UPVOTE_COMMENT"
+export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT"
+
+export function fetchComments(postId) {
+    return dispatch => {
+        dispatch(requestComments(postId))
+
+        let apiUrl = `${api}/posts/${postId}/comments`
+
+        return fetch(apiUrl, { headers })
+            .then(res => res.json())
+            .then(json => dispatch(receiveComments(postId, json)))
+    
+    }
+}
+
+function requestComments(postId) {
+    return {
+        type: REQUEST_COMMENTS,
+        postId
+    }
+}
+
+function receiveComments(postId, json) {
+    return {
+        type: RECEIVE_COMMENTS,
+        postId,
+        comments: json
+    }
+}
+function upvoteComment(comment) {
+    return {
+        type: UPVOTE_COMMENT,
+        comment
+    }
+}
+
+function downvoteComment(comment) {
+    return {
+        type: DOWNVOTE_COMMENT,
+        comment
+    }
+}
+
+export function sendUpvoteComment(comment) {
+    return dispatch => {
+        dispatch(upvoteComment(comment))
+    }
+}
+
+export function sendDownvoteComment(comment) {
+    return dispatch => {
+        dispatch(downvoteComment(comment))
+    }
+}
+
+
 /* Sort Filter Actions */
 export const setSortFilter = filter => ({
     type : "SET_SORT_FILTER",

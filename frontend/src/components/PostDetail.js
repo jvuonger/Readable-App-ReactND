@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { format } from 'date-fns'
-import CommentList from './CommentList'
+import CommentListContainer from '../containers/CommentListContainer'
 import * as ReadableAPI from '../utils/ReadableAPI'
 
 class PostDetail extends Component {
@@ -33,7 +33,7 @@ class PostDetail extends Component {
                 </p>
                 <span>Comments: {commentCount}</span>
                 <hr />
-                <CommentList postId={postId} />
+                <CommentListContainer postId={postId} />
             </div>
         )
     }

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const VotingWidget = ({upvotePost, downvotePost, entity}) => (
+const VotingWidget = ({upvoteEntity, downvoteEntity, entity}) => (
     <p>
         {entity.voteScore} Votes ( 
-            <a href="#" onClick={() => upvotePost(entity)}>Upvote</a> 
+            <a href="#" onClick={() => upvoteEntity(entity)}>Upvote</a> 
         ) | ( 
-            <a href="#" onClick={() => downvotePost(entity)}>Downvote</a> 
+            <a href="#" onClick={() => downvoteEntity(entity)}>Downvote</a> 
         )
     </p>
 )
