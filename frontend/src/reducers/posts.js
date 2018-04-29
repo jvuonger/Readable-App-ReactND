@@ -1,4 +1,6 @@
 import { 
+    EDIT_POST,
+    DELETE_POST,
     REQUEST_POST,
     RECEIVE_POST,
     REQUEST_POSTS, 
@@ -17,6 +19,21 @@ const initialState = {
 const posts = (state = initialState, action) => {
     let currentPost = {}
     switch(action.type) {
+        case EDIT_POST:
+            return Object.assign({}, state, {
+                posts: state.posts.map(post => 
+                    ( post.id === action.post.id ) ?
+                        action.post :
+                        post
+                )
+            })
+            return state
+        case DELETE_POST:
+            return Object.assign({}, state, {
+                posts: state.posts.filter(post => 
+                    post.id !== action.postId
+                )
+            })
         case REQUEST_POST:
             return Object.assign({}, state, {
                 isFetching: true

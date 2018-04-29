@@ -13,6 +13,8 @@ const headers = {
 
 
 /* Posts Actions */
+export const EDIT_POST = "EDIT_POST"
+export const DELETE_POST = "DELETE_POST"
 export const REQUEST_POST = "REQUEST_POST"
 export const RECEIVE_POST = "RECEIVE_POST"
 export const REQUEST_POSTS = "REQUEST_POSTS"
@@ -43,6 +45,32 @@ export const fetchPosts = (category = 'all') => dispatch => {
         .then(res => res.json())
         .then(json => dispatch(receivePosts(category, json)))
 }
+
+const deletePost = postId =>{
+    return {
+        type: DELETE_POST,
+        postId
+    }
+}
+
+const editPost = (postId, json) => {
+    return {
+        type: EDIT_POST,
+        postId,
+        post: json
+    }
+}
+
+export const sendDeletePost = post => dispatch => {
+    ReadableAPI.deletePost(post.id)
+        .then(dispatch(deletePost(post.id)))
+}
+
+export const sendEditPost = post => dispatch => {
+    ReadableAPI.editPost(post.id, post)
+        .then(dispatch(editPost(post.id)))
+}
+
 
 const requestPost = postId =>{
     return {

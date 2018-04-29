@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import PostVotingContainer from '../containers/PostVotingContainer'
+import PostEditContainer from '../containers/PostEditContainer'
 
 class PostListItem extends Component {
 
@@ -19,7 +20,8 @@ class PostListItem extends Component {
                     Posted on {formattedDateTime} by <a href="#" className="post-author">{post.author}</a> under <a className="post-category" href="#">{post.category}</a> 
                 </p>
                 <p>{post.body}</p>
-                <PostVotingContainer entity={post}/>
+                <PostVotingContainer entity={post} />
+                <PostEditContainer entity={post} />
                 <span>Comments: {post.commentCount}</span>
             </div>
         )
