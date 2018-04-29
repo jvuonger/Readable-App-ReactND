@@ -1,3 +1,4 @@
+import * as ReadableAPI from '../utils/ReadableAPI'
 
 const api = "http://localhost:3001"
 // Generate a unique token for authorization header
@@ -12,48 +13,60 @@ const headers = {
 
 
 /* Posts Actions */
+export const REQUEST_POST = "REQUEST_POST"
+export const RECEIVE_POST = "RECEIVE_POST"
 export const REQUEST_POSTS = "REQUEST_POSTS"
 export const RECEIVE_POSTS = "RECEIVE_POSTS"
 export const UPVOTE_POST = "UPVOTE_POST"
 export const DOWNVOTE_POST = "DOWNVOTE_POST"
 
-export function fetchPosts(category = 'all') {
-    return dispatch => {
-        dispatch(requestPosts(category))
+export const fetchPost = postId => dispatch => {
+    dispatch(requestPost(postId))
 
-        let apiUrl = `${api}/posts`
+    let apiUrl = `${api}/posts/${postId}`
 
-        if(category !== 'all') {
-            apiUrl = `${api}/${category}/posts`
-        }
+    return fetch(apiUrl, { headers })
+        .then(res => res.json())
+        .then(json => dispatch(receivePost(postId, json)))
+}
 
-        return fetch(apiUrl, { headers })
-            .then(res => res.json())
-            .then(json => dispatch(receivePosts(category, json)))
-    
+export const fetchPosts = (category = 'all') => dispatch => {
+    dispatch(requestPosts(category))
+
+    let apiUrl = `${api}/posts`
+
+    if(category !== 'all') {
+        apiUrl = `${api}/${category}/posts`
+    }
+
+    return fetch(apiUrl, { headers })
+        .then(res => res.json())
+        .then(json => dispatch(receivePosts(category, json)))
+}
+
+const requestPost = postId =>{
+    return {
+        type: REQUEST_POST,
+        postId
     }
 }
 
-export function sendUpvotePost(post) {
-    return dispatch => {
-        dispatch(upvotePost(post))
+const receivePost = (postId, json) => {
+    return {
+        type: RECEIVE_POST,
+        postId,
+        post: json
     }
 }
 
-export function sendDownvotePost(post) {
-    return dispatch => {
-        dispatch(downvotePost(post))
-    }
-}
-
-function requestPosts(category) {
+const requestPosts = category =>{
     return {
         type: REQUEST_POSTS,
         category
     }
 }
 
-function receivePosts(category, json) {
+const receivePosts = (category, json) => {
     return {
         type: RECEIVE_POSTS,
         category,
@@ -61,19 +74,30 @@ function receivePosts(category, json) {
     }
 }
 
-function upvotePost(post) {
+const upvotePost = post => {
     return {
         type: UPVOTE_POST,
         post
     }
 }
 
-function downvotePost(post) {
+const downvotePost = post => {
     return {
         type: DOWNVOTE_POST,
         post
     }
 }
+
+export const sendUpvotePost = post => dispatch => {
+    ReadableAPI.votePost(post.id, 'upVote')
+        .then(dispatch(upvotePost(post)))
+}
+
+export const sendDownvotePost = post => dispatch => {
+    ReadableAPI.votePost(post.id, 'downVote')
+        .then(dispatch(downvotePost(post)))
+}
+
 
 /* Comment Actions */
 export const REQUEST_COMMENTS = "REQUEST_COMMENTS"
@@ -94,46 +118,44 @@ export function fetchComments(postId) {
     }
 }
 
-function requestComments(postId) {
+const requestComments = postId => {
     return {
         type: REQUEST_COMMENTS,
         postId
     }
 }
 
-function receiveComments(postId, json) {
+const receiveComments = (postId, json) => {
     return {
         type: RECEIVE_COMMENTS,
-        postId,
-        comments: json
+        comments: json,
+        postId
     }
 }
-function upvoteComment(comment) {
+
+const upvoteComment = comment => {
     return {
         type: UPVOTE_COMMENT,
         comment
     }
 }
 
-function downvoteComment(comment) {
+const downvoteComment = comment => {
     return {
         type: DOWNVOTE_COMMENT,
         comment
     }
 }
 
-export function sendUpvoteComment(comment) {
-    return dispatch => {
-        dispatch(upvoteComment(comment))
-    }
+export const sendUpvoteComment = comment => dispatch => {
+    ReadableAPI.voteComment(comment.id, 'upVote')
+        .then(dispatch(upvoteComment(comment)))
 }
 
-export function sendDownvoteComment(comment) {
-    return dispatch => {
-        dispatch(downvoteComment(comment))
-    }
+export const sendDownvoteComment = comment => dispatch => {
+    ReadableAPI.voteComment(comment.id, 'downVote')
+        .then(dispatch(downvoteComment(comment)))
 }
-
 
 /* Sort Filter Actions */
 export const setSortFilter = filter => ({

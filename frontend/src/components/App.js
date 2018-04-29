@@ -3,7 +3,7 @@ import { Link, Route } from 'react-router-dom'
 import PostListContainer from '../containers/PostListContainer'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import CreateEditPost from './CreateEditPost'
-import PostDetail from './PostDetail'
+import PostDetailContainer from '../containers/PostDetailContainer'
 import Modal from 'react-modal'
 
 class App extends Component {
@@ -60,7 +60,7 @@ class App extends Component {
                                 <PostListContainer key={category.name} filterCategory={category.name} />
                             } />
                         ))}
-                        <Route path="/post/:postId" component={PostDetail} />
+                        <Route path="/post/:postId" component={PostDetailContainer} />
                         <Route path="/create/:postId?" render={() =>
                             <CreateEditPost categories={categories} />
                         } />

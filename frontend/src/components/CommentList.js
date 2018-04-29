@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
-import * as ReadableAPI from '../utils/ReadableAPI'
 import Comment from './Comment'
 import CommentForm from './CommentForm'
 
 class CommentList extends Component {
     componentDidMount() {
-        const { postId } = this.props
-
-        this.props.fetchComments(postId)
+        this.props.fetchComments(this.props.postId)
     }
 
     render() {
