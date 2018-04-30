@@ -11,7 +11,6 @@ const headers = {
   'Authorization': token
 }
 
-
 /* Posts Actions */
 export const EDIT_POST = "EDIT_POST"
 export const DELETE_POST = "DELETE_POST"
@@ -128,10 +127,37 @@ export const sendDownvotePost = post => dispatch => {
 
 
 /* Comment Actions */
+export const EDIT_COMMENT = "EDIT_COMMENT"
+export const DELETE_COMMENT = "DELETE_COMMENT"
 export const REQUEST_COMMENTS = "REQUEST_COMMENTS"
 export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS"
 export const UPVOTE_COMMENT = "UPVOTE_COMMENT"
 export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT"
+
+const deleteComment = commentId =>{
+    return {
+        type: DELETE_COMMENT,
+        commentId
+    }
+}
+
+const editComment = (commentId, json) => {
+    return {
+        type: EDIT_COMMENT,
+        commentId,
+        comment: json
+    }
+}
+
+export const sendDeleteComment = comment => dispatch => {
+    ReadableAPI.deleteComment(comment.id)
+        .then(dispatch(deleteComment(comment.id)))
+}
+
+export const sendEditComment = comment => dispatch => {
+    ReadableAPI.editPost(comment.id, comment)
+        .then(dispatch(editComment(comment.id)))
+}
 
 export function fetchComments(postId) {
     return dispatch => {

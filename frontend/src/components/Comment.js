@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import CommentVotingContainer from '../containers/CommentVotingContainer'
+import CommentEditContainer from '../containers/CommentEditContainer'
 
 class Comment extends Component {
     render() {
@@ -10,10 +11,7 @@ class Comment extends Component {
                 <p>{comment.body}</p>
                 <span>Comment by: {comment.author} on {comment.timestamp}</span>
                 <CommentVotingContainer entity={comment} />
-                <span>
-                    <a href="#edit" onClick={this.handleEditComment}>Edit</a>
-                    <a href="#delete" onClick={this.handleDeleteComment}>Delete</a>
-                </span>
+                <CommentEditContainer entity={comment} />
             </div>
         )
     }

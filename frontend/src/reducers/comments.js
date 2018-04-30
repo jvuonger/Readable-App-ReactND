@@ -1,4 +1,6 @@
 import { 
+    EDIT_COMMENT,
+    DELETE_COMMENT,
     REQUEST_COMMENTS,
     RECEIVE_COMMENTS,
     UPVOTE_COMMENT,
@@ -12,6 +14,14 @@ const initialState = {
 
 const comments = (state = initialState, action) => {
     switch(action.type) {
+        case EDIT_COMMENT:
+            return state
+        case DELETE_COMMENT:
+            return Object.assign({}, state, {
+                comments: state.comments.filter(comment => 
+                    comment.id !== action.commentId
+                )
+            })
         case REQUEST_COMMENTS:
             return Object.assign({}, state, {
                 isFetching: true
