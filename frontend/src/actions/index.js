@@ -70,7 +70,6 @@ export const sendEditPost = post => dispatch => {
         .then(dispatch(editPost(post.id)))
 }
 
-
 const requestPost = postId =>{
     return {
         type: REQUEST_POST,
@@ -127,12 +126,20 @@ export const sendDownvotePost = post => dispatch => {
 
 
 /* Comment Actions */
+export const ADD_COMMENT = "ADD_COMMENT"
 export const EDIT_COMMENT = "EDIT_COMMENT"
 export const DELETE_COMMENT = "DELETE_COMMENT"
 export const REQUEST_COMMENTS = "REQUEST_COMMENTS"
 export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS"
 export const UPVOTE_COMMENT = "UPVOTE_COMMENT"
 export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT"
+
+const addComment = comment => {
+    return {
+        type: ADD_COMMENT,
+        comment
+    }
+}
 
 const deleteComment = commentId =>{
     return {
@@ -147,6 +154,11 @@ const editComment = (commentId, json) => {
         commentId,
         comment: json
     }
+}
+
+export const sendAddComment = comment => dispatch => {
+    ReadableAPI.addComment(comment)
+        .then(data => dispatch(addComment(data)))
 }
 
 export const sendDeleteComment = comment => dispatch => {

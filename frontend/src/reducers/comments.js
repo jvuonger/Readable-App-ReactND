@@ -1,4 +1,5 @@
 import { 
+    ADD_COMMENT,
     EDIT_COMMENT,
     DELETE_COMMENT,
     REQUEST_COMMENTS,
@@ -14,6 +15,10 @@ const initialState = {
 
 const comments = (state = initialState, action) => {
     switch(action.type) {
+        case ADD_COMMENT:
+            return Object.assign({}, state, {
+                comments: [...state.comments, action.comment]
+            })
         case EDIT_COMMENT:
             return state
         case DELETE_COMMENT:

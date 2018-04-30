@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import CommentVotingContainer from '../containers/CommentVotingContainer'
 import CommentEditContainer from '../containers/CommentEditContainer'
+import CommentForm from '../components/CommentForm'
 
 class Comment extends Component {
     render() {
