@@ -66,9 +66,11 @@ class CreateEditPost extends Component {
                     <br/>
                     <label htmlFor="category">Category:</label>
                     <select id="category" name="category" value={this.state.category} onChange={this.handleInputChange} >
+                        <optgroup label="Select a Category">
                         { categories.map((category) => (
-                            <option value={category.name}>{category.name}</option>
+                            <option key={category.name} value={category.name}>{category.name}</option>
                         )) }
+                        </optgroup>
                     </select>
                     <br/>
                     <input type="submit" id="submit" name="submit" />

@@ -3,9 +3,9 @@ import React from 'react'
 const VotingWidget = ({upvoteEntity, downvoteEntity, entity}) => (
     <p>
         {entity.voteScore} Votes ( 
-            <a href="#" onClick={() => upvoteEntity(entity)}>Upvote</a> 
+            <button onClick={() => upvoteEntity(entity)}>Upvote</button> 
         ) | ( 
-            <a href="#" onClick={() => downvoteEntity(entity)}>Downvote</a> 
+            <button onClick={() => downvoteEntity(entity)}>Downvote</button> 
         )
     </p>
 )

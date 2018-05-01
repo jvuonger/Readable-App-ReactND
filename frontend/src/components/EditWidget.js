@@ -3,9 +3,9 @@ import React from 'react'
 const EditWidget = ({editEntity, deleteEntity, entity}) => (
     <p>
         ( 
-            <a href="#" onClick={() => editEntity(entity)}>Edit</a> 
+            <button onClick={() => editEntity(entity)}>Edit</button> 
         ) | ( 
-            <a href="#" onClick={() => deleteEntity(entity)}>Delete</a> 
+            <button onClick={() => deleteEntity(entity)}>Delete</button> 
         )
     </p>
 )

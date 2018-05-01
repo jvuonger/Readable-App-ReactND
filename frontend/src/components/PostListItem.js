@@ -8,7 +8,7 @@ class PostListItem extends Component {
 
     render() {
         const { post } = this.props
-        let formattedDateTime = format(new Date(post.createdAt), 'MM/DD/YYYY')
+        let formattedDateTime = format(new Date(post.timestamp), 'MM/DD/YYYY')
 
         return (
 
