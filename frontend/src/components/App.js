@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Route } from 'react-router-dom'
+import { NavLink, Route } from 'react-router-dom'
 import PostListContainer from '../containers/PostListContainer'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import CreateEditPost from './CreateEditPost'
@@ -41,11 +41,13 @@ class App extends Component {
                         <div className="pure-menu">
                             <a className="pure-menu-heading" href="/">Readable</a>
                             <ul className="pure-menu-list">
-                                <li className="pure-menu-item"><a href="/" className="pure-menu-link">Home</a></li>
+                                <li className="pure-menu-item"><NavLink to="/" className="pure-menu-link">Home</NavLink></li>
                                 { categories.map((category) => (
-                                    <li key={category.name} className="pure-menu-item"><a href={'/' + category.path} className="pure-menu-link">{ category.name }</a></li>
+                                    <li key={category.name} className="pure-menu-item">
+                                        <NavLink key={category.name} className="pure-menu-link" to={{pathname: `/${category.path}`}}> { category.path } </NavLink>
+                                    </li>
                                 ))}
-                                <li className="pure-menu-item"><a href="/create" className="pure-menu-link">Create a Post</a></li>
+                                <li className="pure-menu-item"><NavLink to="/create" className="pure-menu-link">Create a Post</NavLink></li>
                             </ul>
                         </div>
                     </div>
