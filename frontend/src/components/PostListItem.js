@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import PostVotingContainer from '../containers/PostVotingContainer'
-import PostEditContainer from '../containers/PostEditContainer'
+import PostEditActionsContainer from '../containers/PostEditActionsContainer'
+import { formatTimestamp } from '../utils/helpers'
 
 class PostListItem extends Component {
 
     render() {
         const { post } = this.props
-        let formattedDateTime = format(new Date(post.timestamp), 'MM/DD/YYYY')
 
         return (
 
@@ -17,11 +17,11 @@ class PostListItem extends Component {
                     <Link to={`/post/${post.id}`}>{post.title}</Link>
                 </h2>
                 <p className="post-meta">
-                    Posted on {formattedDateTime} by <a href="#" className="post-author">{post.author}</a> under <a className="post-category" href="#">{post.category}</a> 
+                    Posted on {formatTimestamp(post.timestamp)} by <a href="#" className="post-author">{post.author}</a> under <a className="post-category" href="#">{post.category}</a> 
                 </p>
                 <p>{post.body}</p>
                 <PostVotingContainer entity={post} />
-                <PostEditContainer entity={post} />
+                <PostEditActionsContainer entity={post} />
                 <span>Comments: {post.commentCount}</span>
             </div>
         )

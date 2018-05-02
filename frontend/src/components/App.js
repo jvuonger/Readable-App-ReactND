@@ -1,22 +1,22 @@
+import { connect } from 'react-redux'
 import React, { Component } from 'react'
-import { NavLink, Route } from 'react-router-dom'
+import { NavLink, Route, withRouter } from 'react-router-dom'
 import PostListContainer from '../containers/PostListContainer'
 import * as ReadableAPI from '../utils/ReadableAPI'
-import CreateEditPost from './CreateEditPost'
+import CreateEditPostContainer from '../containers/CreateEditPostContainer'
 import PostDetailContainer from '../containers/PostDetailContainer'
 import Modal from 'react-modal'
+import { fetchCategories } from '../actions'
+
 
 class App extends Component {
 
     state = {
-        categories: [],
         commentModalOpen: false
     }
 
     componentDidMount() {
-        ReadableAPI.getAllCategories().then((categories) =>
-            this.setState({categories})
-        )
+        this.props.fetchCategories()
     }
 
     createCommentModal = () => {
@@ -32,7 +32,8 @@ class App extends Component {
     }
 
     render() {
-        const { categories, commentModalOpen } = this.state
+        const { categories } = this.props.categories
+        const { commentModalOpen } = this.state
 
         return (
             <div className="App">
@@ -64,7 +65,7 @@ class App extends Component {
                         ))}
                         <Route path="/post/:postId" component={PostDetailContainer} />
                         <Route path="/create/:postId?" render={() =>
-                            <CreateEditPost categories={categories} />
+                            <CreateEditPostContainer />
                         } />
                     </div>
                 </div>
@@ -84,4 +85,15 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => ({
+    categories: state.categories
+})
+
+const mapDispatchToProps = dispatch => ({
+    fetchCategories: () => dispatch(fetchCategories())
+}) 
+
+export default withRouter(connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App))

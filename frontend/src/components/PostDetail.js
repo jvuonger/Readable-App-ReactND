@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { format } from 'date-fns'
 import CommentListContainer from '../containers/CommentListContainer'
 import PostVotingContainer from '../containers/PostVotingContainer'
+import { formatTimestamp } from '../utils/helpers'
 
 class PostDetail extends Component {
 
@@ -13,12 +14,11 @@ class PostDetail extends Component {
     render() {
         const { postId } = this.props.match.params
         const { post } = this.props
-        let formattedDateTime = format(new Date(post.timestamp), 'MM/DD/YYYY')
         return (
             <div className="content">
                 <h2 className="content-subhead">{post.title}</h2>
                 <p className="post-meta">
-                    Posted on {formattedDateTime} by <a href="#" className="post-author">{post.author}</a> under <a className="post-category" href="#">{post.category}</a> 
+                    Posted on {formatTimestamp(post.timestamp)} by <a href="#" className="post-author">{post.author}</a> under <a className="post-category" href="#">{post.category}</a> 
                 </p>
                 <p>{post.body}</p>
                  <PostVotingContainer entity={post} /> 

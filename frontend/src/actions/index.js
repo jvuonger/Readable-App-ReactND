@@ -11,15 +11,68 @@ const headers = {
   'Authorization': token
 }
 
+/* Category Actions */
+export const REQUEST_CATEGORIES = "REQUEST_CATEGORIES"
+export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES"
+
+export const fetchCategories = () => dispatch => {
+    dispatch(requestCategories())
+
+    ReadableAPI.getAllCategories()
+        .then((categories) =>
+            dispatch(receiveCategories(categories))
+        )
+}
+
+const requestCategories = () => {
+    return {
+        type: REQUEST_CATEGORIES
+    }
+}
+
+const receiveCategories = ( categories ) => {
+    return {
+        type: RECEIVE_CATEGORIES,
+        categories
+    }
+}
+
 /* Posts Actions */
+export const ADD_POST = "ADD_POST"
+export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS"
+
 export const EDIT_POST = "EDIT_POST"
 export const DELETE_POST = "DELETE_POST"
+
 export const REQUEST_POST = "REQUEST_POST"
 export const RECEIVE_POST = "RECEIVE_POST"
+
 export const REQUEST_POSTS = "REQUEST_POSTS"
 export const RECEIVE_POSTS = "RECEIVE_POSTS"
+
 export const UPVOTE_POST = "UPVOTE_POST"
 export const DOWNVOTE_POST = "DOWNVOTE_POST"
+
+export const savePost = ( post ) => dispatch => {
+    dispatch(addPost(post))
+
+    ReadableAPI.addPost(post)
+        .then(data => dispatch(addPostSuccess(data)))
+}
+
+const addPost = post => {
+    return {
+        type: ADD_POST,
+        post
+    }
+}
+
+const addPostSuccess = post => {
+    return {
+        type: ADD_POST_SUCCESS,
+        post
+    }
+}
 
 export const fetchPost = postId => dispatch => {
     dispatch(requestPost(postId))

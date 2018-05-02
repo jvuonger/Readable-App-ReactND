@@ -11,11 +11,8 @@ class PostList extends Component {
         this.props.fetchPosts(this.props.filterCategory)
     }
 
-    render() {
-        const { setSortFilter, sortFilter } = this.props
-        let { posts } = this.props.posts
-
-        switch(sortFilter) {
+    sortPosts(posts, filter) {
+        switch(filter) {
             case SortFilters.VOTES_ASCENDING:
                 posts = posts.slice(0).sort((a,b) => a.voteScore < b.voteScore)
                 break;
@@ -29,6 +26,24 @@ class PostList extends Component {
             default:
                 posts = posts.slice(0).sort((a,b) => a.timestamp < b.timestamp)
         }
+
+        return posts
+    }
+
+    renderPosts(posts) {
+        return posts.map((post) => (
+            <PostListItem 
+                key={post.id}
+                post={post}
+            />
+        ))
+    }
+
+    render() {
+        const { setSortFilter, sortFilter } = this.props
+        let { posts } = this.props.posts
+
+        posts = this.sortPosts(posts, sortFilter)
 
         return (
             <div>
@@ -44,12 +59,7 @@ class PostList extends Component {
                     <button onClick={() => setSortFilter(SortFilters.DATE_ASCENDING)}>Oldest</button>
                 </div>
 
-                { posts.map((post) => (
-                    <PostListItem 
-                        key={post.id}
-                        post={post}
-                    />
-                ))}
+                { this.renderPosts(posts) }
             </div>
         )
     }

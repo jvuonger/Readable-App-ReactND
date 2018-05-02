@@ -25,7 +25,7 @@ class CreateEditPost extends Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        
+    
         const uuidv4 = require('uuid/v4');
 
         let post = {
@@ -37,20 +37,11 @@ class CreateEditPost extends Component {
             category: this.state.category,
         }
 
-        ReadableAPI.addPost(post)
-            .then(data => {
-                console.log(data)
-                this.setState({
-                    title: '',
-                    body: '',
-                    author: '',
-                    category: ''
-                })
-            })
+        this.props.savePost(post)
     }
 
     render() {
-        const {categories} = this.props
+        const {categories} = this.props.categories
         return (
             <div>
                 <h2 className="content-subhead">Create a new Post</h2>

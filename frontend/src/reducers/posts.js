@@ -1,4 +1,6 @@
 import { 
+    ADD_POST,
+    ADD_POST_SUCCESS,
     EDIT_POST,
     DELETE_POST,
     REQUEST_POST,
@@ -19,6 +21,16 @@ const initialState = {
 const posts = (state = initialState, action) => {
     let currentPost = {}
     switch(action.type) {
+        case ADD_POST:
+            return {
+                ...state,
+                post: action.post
+            }
+        case ADD_POST_SUCCESS:
+            return {
+                ...state,
+                post: action.post
+            }
         case EDIT_POST:
             return Object.assign({}, state, {
                 posts: state.posts.map(post => 
