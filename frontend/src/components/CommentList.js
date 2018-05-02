@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Comment from './Comment'
-import CommentForm from './CommentForm'
+import CommentFormContainer from '../containers/CommentFormContainer'
 
 class CommentList extends Component {
     componentDidMount() {
@@ -22,7 +22,7 @@ class CommentList extends Component {
                 ))}
 
                 <hr/>
-                <CommentForm postId={postId} />
+                <CommentFormContainer postId={postId} />
             </div>
         )
     }

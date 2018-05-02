@@ -7,7 +7,7 @@ import logger from 'redux-logger'
 import rootReducer from './reducers'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
-import App from './components/App'
+import AppContainer from './containers/AppContainer'
 import registerServiceWorker from './registerServiceWorker'
 import { SortFilters } from './actions'
 
@@ -31,7 +31,7 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter basename="/">
-            <App />
+            <AppContainer />
         </BrowserRouter>
     </Provider>, 
     document.getElementById('root')

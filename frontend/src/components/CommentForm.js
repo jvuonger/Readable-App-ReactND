@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import * as ReadableAPI from '../utils/ReadableAPI'
-import { connect } from 'react-redux'
-import { sendAddComment } from '../actions'
 
 class CommentForm extends Component {
     constructor(props) {
@@ -55,14 +52,4 @@ class CommentForm extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({})
-
-const mapDispatchToProps = dispatch => ({
-    addComment: comment => dispatch(sendAddComment(comment))
-}) 
-
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CommentForm)
+export default CommentForm

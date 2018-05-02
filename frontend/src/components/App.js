@@ -1,12 +1,9 @@
-import { connect } from 'react-redux'
 import React, { Component } from 'react'
-import { NavLink, Route, withRouter } from 'react-router-dom'
+import { NavLink, Route } from 'react-router-dom'
 import PostListContainer from '../containers/PostListContainer'
-import * as ReadableAPI from '../utils/ReadableAPI'
 import CreateEditPostContainer from '../containers/CreateEditPostContainer'
 import PostDetailContainer from '../containers/PostDetailContainer'
 import Modal from 'react-modal'
-import { fetchCategories } from '../actions'
 
 
 class App extends Component {
@@ -85,15 +82,4 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    categories: state.categories
-})
-
-const mapDispatchToProps = dispatch => ({
-    fetchCategories: () => dispatch(fetchCategories())
-}) 
-
-export default withRouter(connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App))
+export default App
