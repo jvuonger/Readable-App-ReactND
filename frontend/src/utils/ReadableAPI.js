@@ -91,7 +91,7 @@ export const votePost = (post_id, option) =>
  */
 export const editPost = (post_id, post) => {
   const { title, body } = post
-  fetch(`${api}/posts/${post_id}`, {
+  return fetch(`${api}/posts/${post_id}`, {
       method: 'PUT',
       headers: {
           ...headers,

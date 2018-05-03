@@ -1,16 +1,40 @@
 import React, { Component } from 'react';
 import * as ReadableAPI from '../utils/ReadableAPI'
+import { POST_ACTION } from '../actions'
 
 class CreateEditPost extends Component {
     constructor(props) {
         super(props)
 
+        const uuidv4 = require('uuid/v4');
+
         this.state = {
+            id: uuidv4(),
             title: '',
             body: '',
             author: '',
-            category: ''
+            category: '',
+            post_action : POST_ACTION.CREATE_POST
         }
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+
+        if( nextProps.post === undefined ) return;
+
+        const {id, title, body, author, category} = nextProps.post
+
+        if( title !== undefined && body !== undefined && author !== undefined && category !== undefined) {
+            this.setState({
+                id,
+                title,
+                body,
+                author,
+                category,
+                post_action : POST_ACTION.EDIT_POST
+            })
+        }
+        
     }
 
     handleInputChange = (e) => {
@@ -25,11 +49,9 @@ class CreateEditPost extends Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-    
-        const uuidv4 = require('uuid/v4');
 
         let post = {
-            id: uuidv4(),
+            id: this.state.id,
             timestamp: Date.now(),
             title: this.state.title,
             body: this.state.body,
@@ -37,11 +59,17 @@ class CreateEditPost extends Component {
             category: this.state.category,
         }
 
-        this.props.savePost(post)
+        if (this.state.post_action === POST_ACTION.CREATE_POST) {
+            this.props.sendAddPost(post)
+        } else {
+            this.props.sendEditPost(post)
+        }
+        
     }
 
     render() {
         const {categories} = this.props.categories
+        const {isEditing} = this.props
         return (
             <div>
                 <h2 className="content-subhead">Create a new Post</h2>
@@ -49,21 +77,30 @@ class CreateEditPost extends Component {
                     <label htmlFor="title">Title:</label>
                     <input type="text" id="title" name="title" value={this.state.title}  onChange={this.handleInputChange} />
                     <br/>
-                    <label htmlFor="author">Author:</label>
-                    <input type="text" id="author" name="author" value={this.state.author}  onChange={this.handleInputChange} />
-                    <br/>
+                    { 
+                        !isEditing && 
+                        <div>
+                            <label htmlFor="author">Author:</label>
+                            <input type="text" id="author" name="author" value={this.state.author}  onChange={this.handleInputChange} />
+                        </div>
+                    }
                     <label htmlFor="body">Body:</label>
                     <textarea id="body" name="body" value={this.state.body}  onChange={this.handleInputChange} />
                     <br/>
-                    <label htmlFor="category">Category:</label>
-                    <select id="category" name="category" value={this.state.category} onChange={this.handleInputChange} >
-                        <optgroup label="Select a Category">
-                        { categories.map((category) => (
-                            <option key={category.name} value={category.name}>{category.name}</option>
-                        )) }
-                        </optgroup>
-                    </select>
-                    <br/>
+                    { 
+                        !isEditing && 
+                        <div>
+                            <label htmlFor="category">Category:</label>
+                            <select id="category" name="category" value={this.state.category} onChange={this.handleInputChange} >
+                                <optgroup label="Select a Category">
+                                { categories.map((category) => (
+                                    <option key={category.name} value={category.name}>{category.name}</option>
+                                )) }
+                                </optgroup>
+                            </select>
+                            <br/>
+                        </div>
+                    }
                     <input type="submit" id="submit" name="submit" />
                 </form>
             </div>

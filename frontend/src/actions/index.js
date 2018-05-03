@@ -1,4 +1,5 @@
 import * as ReadableAPI from '../utils/ReadableAPI'
+import { router } from 'react-router'
 
 const api = "http://localhost:3001"
 // Generate a unique token for authorization header
@@ -38,10 +39,16 @@ const receiveCategories = ( categories ) => {
 }
 
 /* Posts Actions */
+export const POST_ACTION = {
+    "CREATE_POST" : "CREATE_POST",
+    "EDIT_POST" : "EDIT_POST"
+}
+
 export const ADD_POST = "ADD_POST"
 export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS"
 
 export const EDIT_POST = "EDIT_POST"
+export const EDIT_POST_SUCCESS = "EDIT_POST_SUCCESS"
 export const DELETE_POST = "DELETE_POST"
 
 export const REQUEST_POST = "REQUEST_POST"
@@ -53,7 +60,7 @@ export const RECEIVE_POSTS = "RECEIVE_POSTS"
 export const UPVOTE_POST = "UPVOTE_POST"
 export const DOWNVOTE_POST = "DOWNVOTE_POST"
 
-export const savePost = ( post ) => dispatch => {
+export const sendAddPost = ( post ) => dispatch => {
     dispatch(addPost(post))
 
     ReadableAPI.addPost(post)
@@ -105,9 +112,23 @@ const deletePost = postId =>{
     }
 }
 
-const editPost = (postId, json) => {
+export const sendEditPost = ( post ) => dispatch => {
+    dispatch(editPost(post))
+
+    ReadableAPI.editPost(post.id, post)
+        .then(data => dispatch(editPostSuccess(post.id, data)))
+}
+
+const editPost = (post) => {
     return {
         type: EDIT_POST,
+        post
+    }
+}
+
+const editPostSuccess = (postId, json) => {
+    return {
+        type: EDIT_POST_SUCCESS,
         postId,
         post: json
     }
@@ -116,11 +137,6 @@ const editPost = (postId, json) => {
 export const sendDeletePost = post => dispatch => {
     ReadableAPI.deletePost(post.id)
         .then(dispatch(deletePost(post.id)))
-}
-
-export const sendEditPost = post => dispatch => {
-    ReadableAPI.editPost(post.id, post)
-        .then(dispatch(editPost(post.id)))
 }
 
 const requestPost = postId =>{

@@ -4,6 +4,7 @@ import PostListContainer from '../containers/PostListContainer'
 import CreateEditPostContainer from '../containers/CreateEditPostContainer'
 import PostDetailContainer from '../containers/PostDetailContainer'
 import Modal from 'react-modal'
+import { POST_ACTION } from '../actions'
 
 
 class App extends Component {
@@ -45,7 +46,7 @@ class App extends Component {
                                         <NavLink key={category.name} className="pure-menu-link" to={{pathname: `/${category.path}`}}> { category.path } </NavLink>
                                     </li>
                                 ))}
-                                <li className="pure-menu-item"><NavLink to="/create" className="pure-menu-link">Create a Post</NavLink></li>
+                                <li className="pure-menu-item"><NavLink to="/create/post" className="pure-menu-link">Create a Post</NavLink></li>
                             </ul>
                         </div>
                     </div>
@@ -60,10 +61,9 @@ class App extends Component {
                                 <PostListContainer key={category.name} filterCategory={category.name} />
                             } />
                         ))}
-                        <Route path="/post/:postId" component={PostDetailContainer} />
-                        <Route path="/create/:postId?" render={() =>
-                            <CreateEditPostContainer />
-                        } />
+                        <Route exact path="/post/:postId" component={PostDetailContainer} />
+                        <Route exact path="/post/:postId/edit" render={(props) => <PostDetailContainer {...props} action={POST_ACTION.EDIT_POST} />} />
+                        <Route exact path="/create/post" render={(props) => <CreateEditPostContainer {...props} isEditing={false} />} />
                     </div>
                 </div>
 

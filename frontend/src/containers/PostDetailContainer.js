@@ -3,7 +3,8 @@ import PostDetail from '../components/PostDetail'
 import { fetchPost } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
-    post: state.posts.post
+    post: state.posts.post,
+    postAction : ownProps.action
 })
 
 const mapDispatchToProps = dispatch => ({
