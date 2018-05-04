@@ -3,35 +3,17 @@ import { NavLink, Route } from 'react-router-dom'
 import PostListContainer from '../containers/PostListContainer'
 import CreateEditPostContainer from '../containers/CreateEditPostContainer'
 import PostDetailContainer from '../containers/PostDetailContainer'
-import Modal from 'react-modal'
 import { POST_ACTION } from '../actions'
 
 
 class App extends Component {
 
-    state = {
-        commentModalOpen: false
-    }
-
     componentDidMount() {
         this.props.fetchCategories()
     }
 
-    createCommentModal = () => {
-        this.setState({commentModalOpen: true})
-    }
-
-    editCommentModal = () => {
-        this.setState({commentModalOpen: true})
-    }
-
-    closeCommentModal = () => {
-        this.setState({commentModalOpen: false})
-    }
-
     render() {
         const { categories } = this.props.categories
-        const { commentModalOpen } = this.state
 
         return (
             <div className="App">
@@ -66,17 +48,6 @@ class App extends Component {
                         <Route exact path="/create/post" render={(props) => <CreateEditPostContainer {...props} isEditing={false} />} />
                     </div>
                 </div>
-
-                <Modal
-                    className='modal'
-                    overlayClassName='overlay'
-                    isOpen={commentModalOpen}
-                    onRequestClose={this.closeCommentModal}
-                    contentLabel='Modal'
-                    >
-                    Comment Modal
-                    <button onClick={this.closeCommentModal}>Close Modal</button>
-                </Modal>
             </div>
         );
     }

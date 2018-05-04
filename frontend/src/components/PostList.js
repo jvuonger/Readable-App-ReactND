@@ -4,10 +4,7 @@ import PostListItem from './PostListItem'
 import { SortFilters, setSortFilter } from '../actions'
 
 class PostList extends Component {
-    state = {
-        posts : []
-    }
-    
+
     componentDidMount() {   
         this.props.fetchPosts(this.props.filterCategory)
     }

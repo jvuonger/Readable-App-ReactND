@@ -5,8 +5,8 @@ class CommentForm extends Component {
         super(props)
 
         this.state = {
-            body: '',//this.props.body,
-            author: ''//this.props.athor
+            body: '',
+            author: ''
         }
     }
 
