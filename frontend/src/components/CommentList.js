@@ -8,7 +8,7 @@ class CommentList extends Component {
     }
 
     render() {
-        const { postId } = this.props
+        const { postId, commentToEdit } = this.props
         const { comments } = this.props.comments
 
         return (
@@ -16,13 +16,17 @@ class CommentList extends Component {
                 <div className="header">
                     <h3>Comments</h3>
                 </div>
+                
+                <hr />
+
+                <CommentFormContainer postId={postId} isEditing={false}/>
+
+                <hr />
 
                 { comments.map((comment) => (
-                    <Comment key={comment.id} comment={comment} />
+                    <Comment key={comment.id} comment={comment} isEditing={commentToEdit.isEditing && (comment.id === commentToEdit.data.id)}/>
                 ))}
 
-                <hr/>
-                <CommentFormContainer postId={postId} />
             </div>
         )
     }

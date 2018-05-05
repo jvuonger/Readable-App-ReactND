@@ -5,12 +5,18 @@ import {
     REQUEST_COMMENTS,
     RECEIVE_COMMENTS,
     UPVOTE_COMMENT,
-    DOWNVOTE_COMMENT
+    DOWNVOTE_COMMENT,
+    EDIT_COMMENT_SUCCESS,
+    OPEN_COMMENT_EDIT_FORM
 } from '../actions'
 
 const initialState = {
     isFetching: false,
-    comments: []
+    comments: [],
+    comment: {
+        isEditing: false,
+        data: {}
+    }
 }
 
 const comments = (state = initialState, action) => {
@@ -19,8 +25,16 @@ const comments = (state = initialState, action) => {
             return Object.assign({}, state, {
                 comments: [...state.comments, action.comment]
             })
+        case OPEN_COMMENT_EDIT_FORM:
+            return Object.assign({}, state, {
+                comment: {...state.comment, isEditing: true, data: action.comment }
+            })
         case EDIT_COMMENT:
             return state
+        case EDIT_COMMENT_SUCCESS:
+            return Object.assign({}, state, {
+                comment: { ...state.comment, isEditing: false, data: action.comment }
+            })
         case DELETE_COMMENT:
             return Object.assign({}, state, {
                 comments: state.comments.filter(comment => 

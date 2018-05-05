@@ -3,12 +3,12 @@ import VotingWidget from '../components/VotingWidget'
 import { sendUpvoteComment, sendDownvoteComment } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
-    entity : ownProps.entity
+    entity : ownProps.comment
 })
 
 const mapDispatchToProps = dispatch => ({
-    upvoteEntity: entity => dispatch(sendUpvoteComment(entity)),
-    downvoteEntity: entity => dispatch(sendDownvoteComment(entity))
+    upvoteEntity: comment => dispatch(sendUpvoteComment(comment)),
+    downvoteEntity: comment => dispatch(sendDownvoteComment(comment))
 }) 
 
 export default connect(

@@ -4,7 +4,8 @@ import { fetchComments } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
     comments: state.comments,
-    postId: ownProps.postId
+    postId: ownProps.postId,
+    commentToEdit: state.comments.comment
 })
 
 const mapDispatchToProps = dispatch => ({

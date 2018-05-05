@@ -4,9 +4,22 @@ class CommentForm extends Component {
     constructor(props) {
         super(props)
 
+        const uuidv4 = require('uuid/v4');
+
         this.state = {
+            id: uuidv4(),
+            timestamp: Date.now(),
             body: '',
-            author: ''
+            author: '',
+            parentId: this.props.postId
+        }
+    }
+
+    componentDidMount() {
+        const { comment } = this.props
+
+        if( comment !== undefined ) {
+            this.setState(comment)
         }
     }
 
@@ -23,25 +36,38 @@ class CommentForm extends Component {
     handleFormSubmit = (e) => {
         e.preventDefault()
         
-        const uuidv4 = require('uuid/v4');
-
         let comment = {
-            id: uuidv4(),
-            timestamp: Date.now(),
+            id: this.state.id,
+            timestamp: this.state.timestamp,
             body: this.state.body,
             author: this.state.author,
-            parentId: this.props.postId,
+            parentId: this.state.parentId,
         }
 
-        this.props.addComment(comment)
+        if(this.props.isEditing){
+            this.props.editComment(comment)
+        }else {
+            this.props.addComment(comment)
+        }
+        this.resetForm()
+    }
+
+    resetForm = () => {
+        this.setState({
+            body: '',
+            author: ''
+        })
     }
 
     render() {
         return (
             <form id="addCommentForm" name="addCommentForm" action='POST' onSubmit={this.handleFormSubmit}>
 
-                <label htmlFor="author">Author</label>
-                <input type="text" name="author" value={this.state.author} onChange={this.handleInputChange} />
+                { !this.props.isEditing && <div>
+                    <label htmlFor="author">Author</label>
+                    <input type="text" name="author" value={this.state.author} onChange={this.handleInputChange} />
+                    </div>
+                }
 
                 <label htmlFor="body">Body</label>
                 <input type="text" name="body" value={this.state.body} onChange={this.handleInputChange} />

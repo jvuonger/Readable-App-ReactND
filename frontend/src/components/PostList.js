@@ -1,4 +1,3 @@
-import orderBy from 'lodash/orderBy'
 import React, { Component } from 'react'
 import PostListItem from './PostListItem'
 import { SortFilters, setSortFilter } from '../actions'

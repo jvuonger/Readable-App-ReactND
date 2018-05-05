@@ -34,7 +34,6 @@ class App extends Component {
                     </div>
 
                     <div id="main">
-                        <button onClick={this.createCommentModal}>Create Comment</button>
                         <Route exact path="/" render={() =>
                             <PostListContainer filterCategory="all" />
                         } />

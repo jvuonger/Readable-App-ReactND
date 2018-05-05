@@ -196,7 +196,12 @@ export const sendDownvotePost = post => dispatch => {
 
 /* Comment Actions */
 export const ADD_COMMENT = "ADD_COMMENT"
+
 export const EDIT_COMMENT = "EDIT_COMMENT"
+export const EDIT_COMMENT_SUCCESS = "EDIT_COMMENT_SUCCESS"
+
+export const OPEN_COMMENT_EDIT_FORM = "OPEN_COMMENT_EDIT_FORM"
+
 export const DELETE_COMMENT = "DELETE_COMMENT"
 export const REQUEST_COMMENTS = "REQUEST_COMMENTS"
 export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS"
@@ -217,14 +222,6 @@ const deleteComment = commentId =>{
     }
 }
 
-const editComment = (commentId, json) => {
-    return {
-        type: EDIT_COMMENT,
-        commentId,
-        comment: json
-    }
-}
-
 export const sendAddComment = comment => dispatch => {
     ReadableAPI.addComment(comment)
         .then(data => dispatch(addComment(data)))
@@ -235,9 +232,36 @@ export const sendDeleteComment = comment => dispatch => {
         .then(dispatch(deleteComment(comment.id)))
 }
 
+const editComment = (commentId) => {
+    return {
+        type: EDIT_COMMENT,
+        commentId
+    }
+}
+
+const editCommentSuccess = (commentId, json) => {
+    return {
+        type: EDIT_COMMENT_SUCCESS,
+        commentId,
+        comment: json
+    }
+}
+
+const openCommentEdit = (comment) => {
+    return {
+        type: OPEN_COMMENT_EDIT_FORM,
+        comment
+    }
+}
+export const openCommentEditForm = comment => dispatch => {
+    dispatch(openCommentEdit(comment))
+}
+
 export const sendEditComment = comment => dispatch => {
-    ReadableAPI.editPost(comment.id, comment)
-        .then(dispatch(editComment(comment.id)))
+    dispatch(editComment(comment.id))
+
+    ReadableAPI.editComment(comment.id, comment)
+        .then(data => dispatch(editCommentSuccess(data.id, data)))
 }
 
 export function fetchComments(postId) {
