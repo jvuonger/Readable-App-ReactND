@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import CommentEditWidget from '../components/CommentEditWidget'
-import { openCommentEditForm, sendEditComment, sendDeleteComment } from '../actions'
+import { openCommentEditForm, closeCommentEditForm, sendEditComment, sendDeleteComment } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
     entity : ownProps.entity,
@@ -9,6 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
     openCommentEditForm: comment => dispatch(openCommentEditForm(comment)),
+    closeCommentEditForm: () => dispatch(closeCommentEditForm()),
     editEntity: entity => dispatch(sendEditComment(entity)),
     deleteEntity: entity => dispatch(sendDeleteComment(entity))
 }) 

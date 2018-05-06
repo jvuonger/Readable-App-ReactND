@@ -1,9 +1,10 @@
 import React from 'react'
 
-const CommentEditWidget = ({openCommentEditForm, deleteEntity, comment}) => (
+const CommentEditWidget = ({openCommentEditForm, closeCommentEditForm, deleteEntity, comment, isEditing}) => (
     <p>
         ( 
-            <button onClick={() => openCommentEditForm(comment)}>Edit</button> 
+            { !isEditing && <button onClick={() => openCommentEditForm(comment)}>Edit</button> }
+            { isEditing && <button onClick={() => closeCommentEditForm(comment)}>Cancel</button>}
         ) | ( 
             <button onClick={() => deleteEntity(comment)}>Delete</button> 
         )

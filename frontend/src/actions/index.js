@@ -201,6 +201,7 @@ export const EDIT_COMMENT = "EDIT_COMMENT"
 export const EDIT_COMMENT_SUCCESS = "EDIT_COMMENT_SUCCESS"
 
 export const OPEN_COMMENT_EDIT_FORM = "OPEN_COMMENT_EDIT_FORM"
+export const CLOSE_COMMENT_EDIT_FORM = "CLOSE_COMMENT_EDIT_FORM"
 
 export const DELETE_COMMENT = "DELETE_COMMENT"
 export const REQUEST_COMMENTS = "REQUEST_COMMENTS"
@@ -247,12 +248,23 @@ const editCommentSuccess = (commentId, json) => {
     }
 }
 
+const closeCommentEdit = () => {
+    return {
+        type: CLOSE_COMMENT_EDIT_FORM
+    }
+}
+
 const openCommentEdit = (comment) => {
     return {
         type: OPEN_COMMENT_EDIT_FORM,
         comment
     }
 }
+
+export const closeCommentEditForm = () => dispatch => {
+    dispatch(closeCommentEdit())
+}
+
 export const openCommentEditForm = comment => dispatch => {
     dispatch(openCommentEdit(comment))
 }

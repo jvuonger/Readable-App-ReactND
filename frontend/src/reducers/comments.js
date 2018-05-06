@@ -7,7 +7,8 @@ import {
     UPVOTE_COMMENT,
     DOWNVOTE_COMMENT,
     EDIT_COMMENT_SUCCESS,
-    OPEN_COMMENT_EDIT_FORM
+    OPEN_COMMENT_EDIT_FORM,
+    CLOSE_COMMENT_EDIT_FORM
 } from '../actions'
 
 const initialState = {
@@ -29,11 +30,20 @@ const comments = (state = initialState, action) => {
             return Object.assign({}, state, {
                 comment: {...state.comment, isEditing: true, data: action.comment }
             })
+        case CLOSE_COMMENT_EDIT_FORM:
+            return Object.assign({}, state, {
+                comment: { ...state.comment, isEditing: false, data: {} }
+            })
         case EDIT_COMMENT:
             return state
         case EDIT_COMMENT_SUCCESS:
             return Object.assign({}, state, {
-                comment: { ...state.comment, isEditing: false, data: action.comment }
+                comment: { ...state.comment, isEditing: false, data: action.comment },
+                comments: state.comments.map(comment =>
+                    (comment.id === action.comment.id) ?
+                        { ...comment, body: action.comment.body } :
+                        comment
+                )
             })
         case DELETE_COMMENT:
             return Object.assign({}, state, {

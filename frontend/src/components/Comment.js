@@ -15,7 +15,7 @@ class Comment extends Component {
                 {!isEditing && comment.body}
                 <p>Comment by: {comment.author} on {formatTimestamp(comment.timestamp)}</p>
                 <CommentVotingContainer comment={comment} />
-                <CommentEditContainer comment={comment} />
+                <CommentEditContainer comment={comment} isEditing={isEditing} />
             </div>
         )
     }
