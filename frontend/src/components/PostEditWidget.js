@@ -1,13 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const EditWidget = ({editEntity, deleteEntity, entity}) => (
+const PostEditWidget = ({editEntity, deleteEntity, entity}) => (
     <p>
         ( 
-            <button onClick={() => editEntity(entity)}>Edit</button> 
+            <Link to={`/post/${entity.id}/edit`}>Edit</Link>
         ) | ( 
-            <button onClick={() => deleteEntity(entity)}>Delete</button> 
+            <Link to="#" onClick={() => deleteEntity(entity)}>Delete</Link> 
         )
     </p>
 )
 
-export default EditWidget
+export default PostEditWidget

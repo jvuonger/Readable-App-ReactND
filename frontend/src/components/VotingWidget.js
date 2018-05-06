@@ -1,11 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const VotingWidget = ({upvoteEntity, downvoteEntity, entity}) => (
     <p>
         {entity.voteScore} Votes ( 
-            <button onClick={() => upvoteEntity(entity)}>Upvote</button> 
+            <Link to="#" onClick={() => upvoteEntity(entity)}>Upvote</Link> 
         ) | ( 
-            <button onClick={() => downvoteEntity(entity)}>Downvote</button> 
+            <Link to="#" onClick={() => downvoteEntity(entity)}>Downvote</Link> 
         )
     </p>
 )
