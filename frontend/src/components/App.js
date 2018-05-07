@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink, Route } from 'react-router-dom'
+import { NavLink, Route, Switch } from 'react-router-dom'
 import PostListContainer from '../containers/PostListContainer'
 import CreateEditPostContainer from '../containers/CreateEditPostContainer'
 import PostDetailContainer from '../containers/PostDetailContainer'
@@ -34,22 +34,32 @@ class App extends Component {
                     </div>
 
                     <div id="main">
-                        <Route exact path="/" render={() =>
-                            <PostListContainer filterCategory="all" />
-                        } />
-                        { categories.map((category) => (
-                            <Route key={category.name} exact path={'/' + category.path} render={() => 
-                                <PostListContainer key={category.name} filterCategory={category.name} />
+                        <Switch>
+                            <Route exact path="/" render={() =>
+                                <PostListContainer filterCategory="all" />
                             } />
-                        ))}
-                        <Route exact path="/post/:postId" component={PostDetailContainer} />
-                        <Route exact path="/post/:postId/edit" render={(props) => <PostDetailContainer {...props} action={POST_ACTION.EDIT_POST} />} />
-                        <Route exact path="/create/post" render={(props) => <CreateEditPostContainer {...props} isEditing={false} />} />
+                            { categories.map((category) => (
+                                <Route key={category.name} exact path={'/' + category.path} render={() => 
+                                    <PostListContainer key={category.name} filterCategory={category.name} />
+                                } />
+                            ))}
+                            <Route exact path="/post/:postId" component={PostDetailContainer} />
+                            <Route exact path="/post/:postId/edit" render={(props) => <PostDetailContainer {...props} action={POST_ACTION.EDIT_POST} />} />
+                            <Route exact path="/create/post" render={(props) => <CreateEditPostContainer {...props} isEditing={false} />} />
+                            <Route component={NoMatch} />
+                        </Switch>
                     </div>
                 </div>
             </div>
         );
     }
 }
+
+const NoMatch = ({ location }) => (
+    <div>
+        <h1 className="title">404</h1>
+        <h3>No match for <code>{location.pathname}</code></h3>
+    </div>
+)
 
 export default App

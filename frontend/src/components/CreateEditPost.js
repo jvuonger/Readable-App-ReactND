@@ -8,18 +8,19 @@ class CreateEditPost extends Component {
 
         const uuidv4 = require('uuid/v4');
 
+        const { post } = props;
+
         this.state = {
             id: uuidv4(),
-            title: '',
-            body: '',
-            author: '',
-            category: '',
+            title: post && post.title,
+            body: post && post.body,
+            author: post && post.author,
+            category: post && post.category,
             post_action : POST_ACTION.CREATE_POST
         }
     }
 
     componentWillReceiveProps = (nextProps) => {
-
         if( nextProps.post === undefined ) return;
 
         const {id, title, body, author, category} = nextProps.post
@@ -64,7 +65,8 @@ class CreateEditPost extends Component {
         } else {
             this.props.sendEditPost(post)
         }
-        
+
+        this.props.history.push(`/post/${post.id}`)
     }
 
     render() {

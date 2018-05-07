@@ -86,9 +86,8 @@ export const fetchPost = postId => dispatch => {
 
     let apiUrl = `${api}/posts/${postId}`
 
-    return fetch(apiUrl, { headers })
-        .then(res => res.json())
-        .then(json => dispatch(receivePost(postId, json)))
+    return ReadableAPI.postDetail(postId)
+        .then( data => dispatch(receivePost(postId, data)))  
 }
 
 export const fetchPosts = (category = 'all') => dispatch => {

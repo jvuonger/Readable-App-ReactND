@@ -18,7 +18,7 @@ class PostDetail extends Component {
         return (
             <div>
                 <h2 className="content-subhead">{post.title}</h2>
-                <Link to={`${this.props.match.url}/edit`}>Edit</Link>
+                <Link to={`/post/${this.props.match.params.postId}/edit`}>Edit</Link>
                 <p className="post-meta">
                     Posted on {formatTimestamp(post.timestamp)} by <a href="#" className="post-author">{post.author}</a> under <a className="post-category" href="#">{post.category}</a> 
                 </p>
