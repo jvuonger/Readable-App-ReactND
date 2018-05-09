@@ -33,6 +33,7 @@ const posts = (state = initialState, action) => {
             }
         case EDIT_POST:
             return Object.assign({}, state, {
+                post: {...state.post, ...action.post},
                 posts: state.posts.map(post => 
                     ( post.id === action.post.id ) ?
                         action.post :

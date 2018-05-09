@@ -8,15 +8,15 @@ class CreateEditPost extends Component {
 
         const uuidv4 = require('uuid/v4');
 
-        const { post } = props;
+        const { post, isEditing } = props;
 
         this.state = {
-            id: uuidv4(),
+            id: post ? post.id : uuidv4(),
             title: post && post.title,
             body: post && post.body,
             author: post && post.author,
             category: post && post.category,
-            post_action : POST_ACTION.CREATE_POST
+            post_action : isEditing ? POST_ACTION.EDIT_POST : POST_ACTION.CREATE_POST
         }
     }
 
@@ -74,7 +74,10 @@ class CreateEditPost extends Component {
         const {isEditing} = this.props
         return (
             <div>
-                <h2 className="content-subhead">Create a new Post</h2>
+                
+                { !isEditing && <h2 className="content-subhead">Create a New Post</h2> }
+                { isEditing && <h2 className="content-subhead">Editing Post</h2> }
+               
                 <form id="postForm" name="postForm" action='POST' onSubmit={this.handleFormSubmit}>
                     <label htmlFor="title">Title:</label>
                     <input type="text" id="title" name="title" value={this.state.title}  onChange={this.handleInputChange} />
