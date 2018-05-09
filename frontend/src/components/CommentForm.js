@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import uuidv4 from 'uuid/v4'
 
 class CommentForm extends Component {
     constructor(props) {
         super(props)
-
-        const uuidv4 = require('uuid/v4');
 
         this.state = {
             id: uuidv4(),
@@ -54,6 +53,7 @@ class CommentForm extends Component {
 
     resetForm = () => {
         this.setState({
+            id: uuidv4(),
             body: '',
             author: ''
         })

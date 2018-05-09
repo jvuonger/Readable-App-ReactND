@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { POST_ACTION } from '../actions'
+import uuidv4 from 'uuid/v4'
 
 class CreateEditPost extends Component {
     constructor(props) {
         super(props)
-
-        const uuidv4 = require('uuid/v4');
-
+        
         const { post, isEditing } = props;
-
-        this.categoryRef = React.createRef();
 
         this.state = {
             id: post ? post.id : uuidv4(),
-            title: post && post.title,
-            body: post && post.body,
-            author: post && post.author,
-            category: ( post && post.category ) ? post.category : '',
+            title: post ? post.title : "" ,
+            body: post ? post.body : "",
+            author: post ? post.author : "",
+            category: post ? post.category : "",
             post_action : isEditing ? POST_ACTION.EDIT_POST : POST_ACTION.CREATE_POST
         }
     }
@@ -107,7 +104,7 @@ class CreateEditPost extends Component {
                         !isEditing && 
                         <div>
                             <label htmlFor="category">Category:</label>
-                            <select ref={this.categoryRef} className="pure-input-1" id="category" name="category" value={this.state.category} onChange={this.handleInputChange} >
+                            <select className="pure-input-1" id="category" name="category" value={this.state.category} onChange={this.handleInputChange} >
                                 <option disabled value="">Select a Category</option>
                                 { categories.map((category) => (
                                     <option key={category.name} value={category.name}>{category.name}</option>

@@ -36,6 +36,7 @@ class PostDetail extends Component {
         return (
             <div className="post">
                 <div className="main-content-button">
+                    <Link to="/" onClick={(post) => this.props.deletePost(post)} className="pure-button button-error">Delete Post</Link> | 
                     <Link to={`/post/${this.props.match.params.postId}/edit`} className="pure-button pure-button-primary">Edit Post</Link>
                 </div>
                 { isEditing ? <CreateEditPostContainer isEditing={isEditing} post={post} /> : this.renderPost(post) }
