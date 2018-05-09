@@ -11,11 +11,13 @@ class Comment extends Component {
 
         return (
             <div className="comment-item" key={comment.id}>
+                <CommentVotingContainer comment={comment} />
                 {isEditing && <CommentFormContainer comment={comment} isEditing={true} />}
                 {!isEditing && comment.body}
-                <p>Comment by: {comment.author} on {formatTimestamp(comment.timestamp)}</p>
-                <CommentVotingContainer comment={comment} />
-                <CommentEditContainer comment={comment} isEditing={isEditing} />
+                <span className="comment-meta">
+                    Comment by: {comment.author} on {formatTimestamp(comment.timestamp)} <br />
+                    <CommentEditContainer comment={comment} isEditing={isEditing} />
+                </span>
             </div>
         )
     }

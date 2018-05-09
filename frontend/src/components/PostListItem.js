@@ -12,9 +12,9 @@ class PostListItem extends Component {
 
         return (
 
-            <div className="content">
-                <h2 className="content-subhead">
-                    <Link to={`/post/${post.id}`}>{post.title}</Link>
+            <div className="post">
+                <h2 className="post-subhead">
+                    <Link to={`/post/${post.id}`} className="post-title">{post.title}</Link>
                 </h2>
                 <p className="post-meta">
                     Posted on {formatTimestamp(post.timestamp)} by <a href="#" className="post-author">{post.author}</a> under <a className="post-category" href="#">{post.category}</a> 

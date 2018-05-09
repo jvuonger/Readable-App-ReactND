@@ -61,18 +61,18 @@ class CommentForm extends Component {
 
     render() {
         return (
-            <form id="addCommentForm" name="addCommentForm" action='POST' onSubmit={this.handleFormSubmit}>
+            <form className="pure-form pure-form-stacked" id="addCommentForm" name="addCommentForm" action='POST' onSubmit={this.handleFormSubmit}>
 
                 { !this.props.isEditing && <div>
                     <label htmlFor="author">Author</label>
-                    <input type="text" name="author" value={this.state.author} onChange={this.handleInputChange} />
+                    <input className="pure-input-2-3" type="text" name="author" value={this.state.author} onChange={this.handleInputChange} />
                     </div>
                 }
 
                 <label htmlFor="body">Body</label>
-                <input type="text" name="body" value={this.state.body} onChange={this.handleInputChange} />
+                <input className="pure-input-2-3" type="text" name="body" value={this.state.body} onChange={this.handleInputChange} />
 
-                <input type="submit" name="submit" />
+                <input className="pure-button pure-button-primary" type="submit" name="submit" />
             </form>
         )
     }

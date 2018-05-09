@@ -10,14 +10,20 @@ class CreateEditPost extends Component {
 
         const { post, isEditing } = props;
 
+        this.categoryRef = React.createRef();
+
         this.state = {
             id: post ? post.id : uuidv4(),
             title: post && post.title,
             body: post && post.body,
             author: post && post.author,
-            category: post && post.category,
+            category: ( post && post.category ) ? post.category : '',
             post_action : isEditing ? POST_ACTION.EDIT_POST : POST_ACTION.CREATE_POST
         }
+    }
+
+    componentDidMount() {
+        console.log(this.categoryRef.current.value)
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -60,6 +66,13 @@ class CreateEditPost extends Component {
             category: this.state.category,
         }
 
+        if(post.title === '' || post.body === '' || post.author === '' || post.category === '') {
+            this.setState({
+                errors: "Please Fill out All Fields"
+            })
+            return
+        }
+
         if (this.state.post_action === POST_ACTION.CREATE_POST) {
             this.props.sendAddPost(post)
         } else {
@@ -70,43 +83,44 @@ class CreateEditPost extends Component {
     }
 
     render() {
+        const {errors} = this.state
         const {categories} = this.props.categories
         const {isEditing} = this.props
+
         return (
             <div>
                 
                 { !isEditing && <h2 className="content-subhead">Create a New Post</h2> }
                 { isEditing && <h2 className="content-subhead">Editing Post</h2> }
-               
-                <form id="postForm" name="postForm" action='POST' onSubmit={this.handleFormSubmit}>
+                { errors && <h3 class="errors">{errors}</h3>}
+                <form className="pure-form pure-form-stacked" id="postForm" name="postForm" action='POST' onSubmit={this.handleFormSubmit}>
                     <label htmlFor="title">Title:</label>
-                    <input type="text" id="title" name="title" value={this.state.title}  onChange={this.handleInputChange} />
+                    <input className="pure-input-1" type="text" id="title" name="title" value={this.state.title}  onChange={this.handleInputChange} />
                     <br/>
                     { 
                         !isEditing && 
                         <div>
                             <label htmlFor="author">Author:</label>
-                            <input type="text" id="author" name="author" value={this.state.author}  onChange={this.handleInputChange} />
+                            <input className="pure-input-1" type="text" id="author" name="author" value={this.state.author}  onChange={this.handleInputChange} />
                         </div>
                     }
                     <label htmlFor="body">Body:</label>
-                    <textarea id="body" name="body" value={this.state.body}  onChange={this.handleInputChange} />
+                    <textarea className="pure-input-1" id="body" name="body" value={this.state.body}  onChange={this.handleInputChange} rows="5"/>
                     <br/>
                     { 
                         !isEditing && 
                         <div>
                             <label htmlFor="category">Category:</label>
-                            <select id="category" name="category" value={this.state.category} onChange={this.handleInputChange} >
-                                <optgroup label="Select a Category">
+                            <select ref={this.categoryRef} className="pure-input-1" id="category" name="category" value={this.state.category} onChange={this.handleInputChange} >
+                                <option disabled value="">Select a Category</option>
                                 { categories.map((category) => (
                                     <option key={category.name} value={category.name}>{category.name}</option>
                                 )) }
-                                </optgroup>
                             </select>
                             <br/>
                         </div>
                     }
-                    <input type="submit" id="submit" name="submit" />
+                    <input className="pure-button pure-button-primary" type="submit" id="submit" name="submit" />
                 </form>
             </div>
         )

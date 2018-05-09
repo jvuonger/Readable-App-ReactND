@@ -18,7 +18,6 @@ class PostDetail extends Component {
         return (
             <div>
                 <h2 className="content-subhead">{post.title}</h2>
-                <Link to={`/post/${this.props.match.params.postId}/edit`}>Edit</Link>
                 <p className="post-meta">
                     Posted on {formatTimestamp(post.timestamp)} by <a href="#" className="post-author">{post.author}</a> under <a className="post-category" href="#">{post.category}</a> 
                 </p>
@@ -34,9 +33,11 @@ class PostDetail extends Component {
         const isEditing = (postAction === POST_ACTION.EDIT_POST)
         
         return (
-            <div className="content">
+            <div className="post">
+                <div className="main-content-button">
+                    <Link to={`/post/${this.props.match.params.postId}/edit`} className="pure-button pure-button-primary">Edit Post</Link>
+                </div>
                 { isEditing ? <CreateEditPostContainer isEditing={isEditing} post={post} /> : this.renderPost(post) }
-
                 <PostVotingContainer entity={post} /> 
                 <span>Comments: {post.commentCount}</span>
                 <hr />

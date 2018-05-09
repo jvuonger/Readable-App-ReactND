@@ -17,8 +17,8 @@ class App extends Component {
 
         return (
             <div className="App">
-                <div id="layout">
-                    <div id="menu">
+                <div id="layout" className="pure-g">
+                    <div id="menu" className="sidebar pure-u-1 pure-u-md-1-4">
                         <div className="pure-menu">
                             <a className="pure-menu-heading" href="/">Readable</a>
                             <ul className="pure-menu-list">
@@ -28,12 +28,11 @@ class App extends Component {
                                         <NavLink key={category.name} className="pure-menu-link" to={{pathname: `/${category.path}`}}> { category.path } </NavLink>
                                     </li>
                                 ))}
-                                <li className="pure-menu-item"><NavLink to="/create/post" className="pure-menu-link">Create a Post</NavLink></li>
                             </ul>
                         </div>
                     </div>
 
-                    <div id="main">
+                    <div id="main" className="content pure-u-1 pure-u-md-3-4">
                         <Switch>
                             <Route exact path="/" render={() =>
                                 <PostListContainer filterCategory="all" />
