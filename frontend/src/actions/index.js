@@ -1,16 +1,6 @@
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { router } from 'react-router'
-
-const api = "http://localhost:3001"
-// Generate a unique token for authorization header
-let token = localStorage.token
-if (!token)
-  token = localStorage.token = Math.random().toString(36).substr(-8)
-
-const headers = {
-  'Accept': 'application/json',
-  'Authorization': token
-}
+import { api, headers } from '../utils/config'
 
 /* Category Actions */
 export const REQUEST_CATEGORIES = "REQUEST_CATEGORIES"

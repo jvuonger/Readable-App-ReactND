@@ -22,10 +22,6 @@ class CreateEditPost extends Component {
         }
     }
 
-    componentDidMount() {
-        console.log(this.categoryRef.current.value)
-    }
-
     componentWillReceiveProps = (nextProps) => {
         if( nextProps.post === undefined ) return;
 
