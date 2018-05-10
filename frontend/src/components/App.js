@@ -45,6 +45,7 @@ class App extends Component {
                             <Route exact path="/post/:postId" component={PostDetailContainer} />
                             <Route exact path="/post/:postId/edit" render={(props) => <PostDetailContainer {...props} action={POST_ACTION.EDIT_POST} />} />
                             <Route exact path="/create/post" render={(props) => <CreateEditPostContainer {...props} isEditing={false} />} />
+                            <Route exact path="/404" component={NoMatch} />
                             <Route component={NoMatch} />
                         </Switch>
                     </div>
@@ -54,10 +55,10 @@ class App extends Component {
     }
 }
 
-const NoMatch = ({ location }) => (
+export const NoMatch = () => (
     <div>
         <h1 className="title">404</h1>
-        <h3>No match for <code>{location.pathname}</code></h3>
+        <h3>We're sorry, but this page does not exist.</h3>
     </div>
 )
 

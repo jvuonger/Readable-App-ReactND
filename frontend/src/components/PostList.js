@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PostListItem from './PostListItem'
-import { SortFilters, setSortFilter } from '../actions'
+import { SortFilters } from '../actions'
 
 class PostList extends Component {
 

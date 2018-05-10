@@ -1,6 +1,6 @@
 import * as ReadableAPI from '../utils/ReadableAPI'
-import { router } from 'react-router'
 import { api, headers } from '../utils/config'
+import { isEmpty } from 'lodash'
 
 /* Category Actions */
 export const REQUEST_CATEGORIES = "REQUEST_CATEGORIES"
@@ -74,10 +74,8 @@ const addPostSuccess = post => {
 export const fetchPost = postId => dispatch => {
     dispatch(requestPost(postId))
 
-    let apiUrl = `${api}/posts/${postId}`
-
     return ReadableAPI.postDetail(postId)
-        .then( data => dispatch(receivePost(postId, data)))  
+        .then( data => dispatch(receivePost(postId, data)))
 }
 
 export const fetchPosts = (category = 'all') => dispatch => {

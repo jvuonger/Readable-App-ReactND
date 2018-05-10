@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { format } from 'date-fns'
 import CommentListContainer from '../containers/CommentListContainer'
 import PostVotingContainer from '../containers/PostVotingContainer'
-import PostEditActionsContainer from '../containers/PostEditActionsContainer'
 import { formatTimestamp } from '../utils/helpers'
 import CreateEditPostContainer from '../containers/CreateEditPostContainer'
 import { POST_ACTION } from '../actions'
+import isEmpty from 'lodash/isEmpty'
 
 class PostDetail extends Component {
 
     componentDidMount() {
         const { postId } = this.props.match.params
         this.props.fetchPost(postId)
+
+        if(isEmpty(this.props.post)) {
+            this.props.history.push('/404')
+        }
     }
 
     renderPost(post) {
@@ -34,9 +37,8 @@ class PostDetail extends Component {
     render() {
         const { postId } = this.props.match.params
         const { post, postAction } = this.props
-
         const isEditing = (postAction === POST_ACTION.EDIT_POST)
-        
+
         return (
             <div className="post">
                 <div className="main-content-button">

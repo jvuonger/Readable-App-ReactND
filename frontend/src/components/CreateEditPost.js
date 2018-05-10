@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import * as ReadableAPI from '../utils/ReadableAPI'
 import { POST_ACTION } from '../actions'
 import uuidv4 from 'uuid/v4'
 
 class CreateEditPost extends Component {
     constructor(props) {
         super(props)
-        
+
         const { post, isEditing } = props;
 
         this.state = {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import * as ReadableAPI from '../utils/ReadableAPI'
 import CommentVotingContainer from '../containers/CommentVotingContainer'
 import CommentEditContainer from '../containers/CommentEditContainer'
 import CommentFormContainer from '../containers/CommentFormContainer'

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import PostVotingContainer from '../containers/PostVotingContainer'
 import PostEditActionsContainer from '../containers/PostEditActionsContainer'

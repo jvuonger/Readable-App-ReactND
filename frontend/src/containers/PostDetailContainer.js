@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import PostDetail from '../components/PostDetail'
 import { fetchPost, sendDeletePost } from '../actions'
+import { withRouter } from 'react-router'
 
 const mapStateToProps = (state, ownProps) => ({
     post: state.posts.post,
@@ -12,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
     deletePost: post => dispatch(sendDeletePost(post))
 }) 
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(PostDetail)
+)(PostDetail))

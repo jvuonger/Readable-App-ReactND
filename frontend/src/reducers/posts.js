@@ -40,7 +40,6 @@ const posts = (state = initialState, action) => {
                         post
                 )
             })
-            return state
         case DELETE_POST:
             return Object.assign({}, state, {
                 posts: state.posts.filter(post => 
