@@ -3,15 +3,11 @@ import { fetchCategories } from '../actions'
 import App from '../components/App'
 import { withRouter } from 'react-router-dom'
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
     categories: state.categories
 })
 
-const mapDispatchToProps = dispatch => ({
-    fetchCategories: () => dispatch(fetchCategories())
-}) 
-
 export default withRouter(connect(
     mapStateToProps,
-    mapDispatchToProps
+    {fetchCategories}
 )(App))

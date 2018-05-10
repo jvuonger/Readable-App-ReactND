@@ -9,7 +9,7 @@ import {
     EDIT_COMMENT_SUCCESS,
     OPEN_COMMENT_EDIT_FORM,
     CLOSE_COMMENT_EDIT_FORM
-} from '../actions'
+} from '../actions/types'
 
 const initialState = {
     isFetching: false,

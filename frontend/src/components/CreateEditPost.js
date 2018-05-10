@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { POST_ACTION } from '../actions'
+import { POST_ACTION } from '../actions/types'
 import uuidv4 from 'uuid/v4'
 
 class CreateEditPost extends Component {

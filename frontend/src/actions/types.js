@@ -1,0 +1,41 @@
+/* Category Action Types */
+export const REQUEST_CATEGORIES = "REQUEST_CATEGORIES"
+export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES"
+
+/* Posts Actions Types*/
+export const POST_ACTION = {
+    "CREATE_POST" : "CREATE_POST",
+    "EDIT_POST" : "EDIT_POST"
+}
+
+export const ADD_POST = "ADD_POST"
+export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS"
+
+export const EDIT_POST = "EDIT_POST"
+export const EDIT_POST_SUCCESS = "EDIT_POST_SUCCESS"
+export const DELETE_POST = "DELETE_POST"
+
+export const REQUEST_POST = "REQUEST_POST"
+export const RECEIVE_POST = "RECEIVE_POST"
+export const RECEIVE_POST_ERROR = "RECEIVE_POST_ERROR"
+
+export const REQUEST_POSTS = "REQUEST_POSTS"
+export const RECEIVE_POSTS = "RECEIVE_POSTS"
+
+export const UPVOTE_POST = "UPVOTE_POST"
+export const DOWNVOTE_POST = "DOWNVOTE_POST"
+
+/* Comment Actions Types */
+export const ADD_COMMENT = "ADD_COMMENT"
+
+export const EDIT_COMMENT = "EDIT_COMMENT"
+export const EDIT_COMMENT_SUCCESS = "EDIT_COMMENT_SUCCESS"
+
+export const OPEN_COMMENT_EDIT_FORM = "OPEN_COMMENT_EDIT_FORM"
+export const CLOSE_COMMENT_EDIT_FORM = "CLOSE_COMMENT_EDIT_FORM"
+
+export const DELETE_COMMENT = "DELETE_COMMENT"
+export const REQUEST_COMMENTS = "REQUEST_COMMENTS"
+export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS"
+export const UPVOTE_COMMENT = "UPVOTE_COMMENT"
+export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT"

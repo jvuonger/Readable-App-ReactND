@@ -1,10 +1,33 @@
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { api, headers } from '../utils/config'
 import { isEmpty } from 'lodash'
-
-/* Category Actions */
-export const REQUEST_CATEGORIES = "REQUEST_CATEGORIES"
-export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES"
+import {
+    REQUEST_CATEGORIES,
+    RECEIVE_CATEGORIES,
+    POST_ACTION,
+    ADD_POST,
+    ADD_POST_SUCCESS,
+    EDIT_POST,
+    EDIT_POST_SUCCESS,
+    DELETE_POST,
+    REQUEST_POST,
+    RECEIVE_POST,
+    RECEIVE_POST_ERROR,
+    REQUEST_POSTS,
+    RECEIVE_POSTS,
+    UPVOTE_POST,
+    DOWNVOTE_POST,
+    ADD_COMMENT,
+    EDIT_COMMENT,
+    EDIT_COMMENT_SUCCESS,
+    OPEN_COMMENT_EDIT_FORM,
+    CLOSE_COMMENT_EDIT_FORM,
+    DELETE_COMMENT,
+    REQUEST_COMMENTS,
+    RECEIVE_COMMENTS,
+    UPVOTE_COMMENT,
+    DOWNVOTE_COMMENT
+} from './types'
 
 export const fetchCategories = () => dispatch => {
     dispatch(requestCategories())
@@ -27,28 +50,6 @@ const receiveCategories = ( categories ) => {
         categories
     }
 }
-
-/* Posts Actions */
-export const POST_ACTION = {
-    "CREATE_POST" : "CREATE_POST",
-    "EDIT_POST" : "EDIT_POST"
-}
-
-export const ADD_POST = "ADD_POST"
-export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS"
-
-export const EDIT_POST = "EDIT_POST"
-export const EDIT_POST_SUCCESS = "EDIT_POST_SUCCESS"
-export const DELETE_POST = "DELETE_POST"
-
-export const REQUEST_POST = "REQUEST_POST"
-export const RECEIVE_POST = "RECEIVE_POST"
-
-export const REQUEST_POSTS = "REQUEST_POSTS"
-export const RECEIVE_POSTS = "RECEIVE_POSTS"
-
-export const UPVOTE_POST = "UPVOTE_POST"
-export const DOWNVOTE_POST = "DOWNVOTE_POST"
 
 export const sendAddPost = ( post ) => dispatch => {
     dispatch(addPost(post))
@@ -74,8 +75,15 @@ const addPostSuccess = post => {
 export const fetchPost = postId => dispatch => {
     dispatch(requestPost(postId))
 
-    return ReadableAPI.postDetail(postId)
-        .then( data => dispatch(receivePost(postId, data)))
+    fetch(`${api}/posts/${postId}`, { headers })
+        .then(res => {
+            if (res.ok) {
+                res.json().then( data =>
+                    dispatch(receivePost(postId, data))
+                )
+            }
+            else { dispatch(receivePostError(postId, res.statusText))}
+        })
 }
 
 export const fetchPosts = (category = 'all') => dispatch => {
@@ -140,6 +148,13 @@ const receivePost = (postId, json) => {
         post: json
     }
 }
+const receivePostError = (postId, json) => {
+    return {
+        type: RECEIVE_POST_ERROR,
+        postId,
+        error: json
+    }
+}
 
 const requestPosts = category =>{
     return {
@@ -179,22 +194,6 @@ export const sendDownvotePost = post => dispatch => {
     ReadableAPI.votePost(post.id, 'downVote')
         .then(dispatch(downvotePost(post)))
 }
-
-
-/* Comment Actions */
-export const ADD_COMMENT = "ADD_COMMENT"
-
-export const EDIT_COMMENT = "EDIT_COMMENT"
-export const EDIT_COMMENT_SUCCESS = "EDIT_COMMENT_SUCCESS"
-
-export const OPEN_COMMENT_EDIT_FORM = "OPEN_COMMENT_EDIT_FORM"
-export const CLOSE_COMMENT_EDIT_FORM = "CLOSE_COMMENT_EDIT_FORM"
-
-export const DELETE_COMMENT = "DELETE_COMMENT"
-export const REQUEST_COMMENTS = "REQUEST_COMMENTS"
-export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS"
-export const UPVOTE_COMMENT = "UPVOTE_COMMENT"
-export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT"
 
 const addComment = comment => {
     return {
@@ -321,6 +320,7 @@ export const setSortFilter = filter => ({
     filter
 })
 
+/* Sort Filter Action Types */
 export const SortFilters = {
     VOTES_DESCENDING: 'VOTES_DESCENDING',
     VOTES_ASCENDING: 'VOTES_ASCENDING',

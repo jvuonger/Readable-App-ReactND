@@ -5,11 +5,12 @@ import {
     DELETE_POST,
     REQUEST_POST,
     RECEIVE_POST,
+    RECEIVE_POST_ERROR,
     REQUEST_POSTS, 
     RECEIVE_POSTS,
     UPVOTE_POST,
     DOWNVOTE_POST
-} from '../actions'
+} from '../actions/types'
 
 const initialState = {
     isFetching: false,
@@ -54,6 +55,11 @@ const posts = (state = initialState, action) => {
             return Object.assign({}, state, {
                 isFetching: false,
                 post: action.post
+            })
+        case RECEIVE_POST_ERROR:
+            return Object.assign({}, state, {
+                isFetching: false,
+                post: { error: action.error }
             })
         case REQUEST_POSTS:
             return Object.assign({}, state, {

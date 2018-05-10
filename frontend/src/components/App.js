@@ -3,12 +3,12 @@ import { NavLink, Route, Switch } from 'react-router-dom'
 import PostListContainer from '../containers/PostListContainer'
 import CreateEditPostContainer from '../containers/CreateEditPostContainer'
 import PostDetailContainer from '../containers/PostDetailContainer'
-import { POST_ACTION } from '../actions'
+import { POST_ACTION } from '../actions/types'
 
 
 class App extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.fetchCategories()
     }
 

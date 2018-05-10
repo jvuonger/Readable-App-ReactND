@@ -1,7 +1,7 @@
 import { 
     REQUEST_CATEGORIES,
     RECEIVE_CATEGORIES
-} from '../actions'
+} from '../actions/types'
 
 const initialState = {
     isFetching: false,

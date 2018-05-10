@@ -4,16 +4,18 @@ import CommentListContainer from '../containers/CommentListContainer'
 import PostVotingContainer from '../containers/PostVotingContainer'
 import { formatTimestamp } from '../utils/helpers'
 import CreateEditPostContainer from '../containers/CreateEditPostContainer'
-import { POST_ACTION } from '../actions'
+import { POST_ACTION } from '../actions/types'
 import isEmpty from 'lodash/isEmpty'
 
 class PostDetail extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         const { postId } = this.props.match.params
         this.props.fetchPost(postId)
+    }
 
-        if(isEmpty(this.props.post)) {
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.post !== undefined && !isEmpty(nextProps.post.error)) {
             this.props.history.push('/404')
         }
     }
