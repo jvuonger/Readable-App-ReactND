@@ -42,8 +42,8 @@ class App extends Component {
                                     <PostListContainer key={category.name} filterCategory={category.name} />
                                 } />
                             ))}
-                            <Route exact path="/post/:postId" component={PostDetailContainer} />
-                            <Route exact path="/post/:postId/edit" render={(props) => <PostDetailContainer {...props} action={POST_ACTION.EDIT_POST} />} />
+                            <Route exact path="/:category/:postId" component={PostDetailContainer} />
+                            <Route exact path="/:category/:postId/edit" render={(props) => <PostDetailContainer {...props} action={POST_ACTION.EDIT_POST} />} />
                             <Route exact path="/create/post" render={(props) => <CreateEditPostContainer {...props} isEditing={false} />} />
                             <Route exact path="/404" component={NoMatch} />
                             <Route component={NoMatch} />
