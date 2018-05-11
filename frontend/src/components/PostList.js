@@ -54,7 +54,7 @@ class PostList extends Component {
         return (
             <div>
                 <div className="main-content-button">
-                    <Link to="/create/post" className="pure-button pure-button-primary">Create a Post</Link>
+                    <Link to="/create" className="pure-button pure-button-primary">Create a Post</Link>
                 </div>
 
                 <div className="header">

@@ -71,7 +71,7 @@ class CreateEditPost extends Component {
             this.props.sendEditPost(post)
         }
 
-        this.props.history.push(`/post/${post.id}`)
+        this.props.history.push(`/${post.category}/${post.id}`)
     }
 
     render() {

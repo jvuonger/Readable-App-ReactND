@@ -44,7 +44,7 @@ class App extends Component {
                             ))}
                             <Route exact path="/:category/:postId" component={PostDetailContainer} />
                             <Route exact path="/:category/:postId/edit" render={(props) => <PostDetailContainer {...props} action={POST_ACTION.EDIT_POST} />} />
-                            <Route exact path="/create/post" render={(props) => <CreateEditPostContainer {...props} isEditing={false} />} />
+                            <Route exact path="/create" render={(props) => <CreateEditPostContainer {...props} isEditing={false} />} />
                             <Route exact path="/404" component={NoMatch} />
                             <Route component={NoMatch} />
                         </Switch>

@@ -15,7 +15,7 @@ class PostDetail extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.post !== undefined && !isEmpty(nextProps.post.error)) {
+        if(isEmpty(nextProps.post) || (nextProps.post !== undefined && !isEmpty(nextProps.post.error))) {
             this.props.history.push('/404')
         }
     }
