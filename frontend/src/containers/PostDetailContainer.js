@@ -4,6 +4,7 @@ import { fetchPost, sendDeletePost } from '../actions'
 import { withRouter } from 'react-router'
 
 const mapStateToProps = (state, ownProps) => ({
+    isFetching: state.posts.isFetching,
     post: state.posts.post,
     postAction : ownProps.action
 })
